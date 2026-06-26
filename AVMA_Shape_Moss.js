@@ -3998,7 +3998,7 @@ function Init_StimRoutineBegin(trials) {
 
     coin = StimList[0]["Sound_P"];
     buzz = StimList[0]["Sound_N"];
-    for (var i = 0, _pj_a = num_symb_all; (i < _pj_a); i += 1) {
+    for (var i = 0, _pj_a = num_symb; (i < _pj_a); i += 1) {
         stimnum.push(StimList[i]["StimNum"]);
         symb.push(StimList[i]["Symb"]);
         symb_r.push(StimList[i]["Symb_R"]);
