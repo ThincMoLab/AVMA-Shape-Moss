@@ -174,7 +174,7 @@ positions(:,1) = positions(:,1) - x_mean;
 
 
 % ✅ NEW: increase spacing
-spacing_scale = 1.0;
+spacing_scale = 1.2;
 positions(:,1) = positions(:,1) * spacing_scale;
 
 

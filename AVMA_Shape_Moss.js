@@ -192,6 +192,7 @@ var beep_lead_in = 0.1;
 var color_p = [(- 1), 1, (- 1)];
 var color_n = [1, (- 1), (- 1)];
 var color_w = [1, 1, 1];
+var color_stim_hand = [1, 1, 1];
 var corr = 0;
 var rec_frame_color = [1, 1, 1];
 var rec_frame_opacity = 1;
@@ -547,10 +548,10 @@ function experimentInit() {
       if ((session === 1)) {
         c = 1000
         instr_exp = 1;
-        sound_check_yes = 1;
-        tr_hand_yes = 1;
+        sound_check_yes = 0;
+        tr_hand_yes = 0;
         tr_block_hand = 4;
-        rt_hand_yes = 1;
+        rt_hand_yes = 0;
         cr_old_yes = 1;
         rt_yes = 1;
         rt_block = 3;
@@ -6591,6 +6592,8 @@ function RT_Enter_Trial_HandRoutineBegin(trials) {
     _RT_Press_Hand_allKeys = [];
     RT_HandShape.setImage(hand_shape);
     RT_Stim_Hand.setPos(position_item);
+    RT_Stim_Hand.setFillColor(new util.Color(color_stim_hand));
+    RT_Stim_Hand.setLineColor(new util.Color(color_stim_hand));
     // keep track of which components have finished
     RT_Enter_Trial_HandComponents = [];
     //RT_Enter_Trial_HandComponents.push(RT_Rec_Frame_Hand);
@@ -7205,8 +7208,8 @@ function TR_Enter_Trials_HandRoutineBegin(trials) {
     TR_Rec_Frame_Hand.setLineWidth(rec_wd);
     TR_HandShape.setImage(hand_shape);
     TR_Stim_Hand.setPos(position_item);
-    TR_Stim_Hand.setFillColor(new util.Color([1, 1, 1]));
-    TR_Stim_Hand.setLineColor(new util.Color([1, 1, 1]));
+    TR_Stim_Hand.setFillColor(new util.Color(color_stim_hand));
+    TR_Stim_Hand.setLineColor(new util.Color(color_stim_hand));
     TR_Text.setColor(new util.Color(tr_text_color));
     TR_Text.setText(tr_text);
     TR_Press_Hand.keys = undefined;
