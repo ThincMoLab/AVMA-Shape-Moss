@@ -2077,7 +2077,7 @@ function Import_StimLoopBegin(thisScheduler) {
     psychoJS: psychoJS,
     nReps: 1, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
-    trialList: TrialHandler.importConditions(psychoJS.serverManager, 'conditions.xlsx', '0:8'),
+    trialList: TrialHandler.importConditions(psychoJS.serverManager, 'conditions.xlsx', '0:4'),
     seed: undefined, name: 'Import_Stim'
   });
   psychoJS.experiment.addLoop(Import_Stim); // add the loop to the experiment
