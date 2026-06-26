@@ -25,7 +25,7 @@ psychoJS.openWindow({
 
 // store info about the experiment session:
 let expName = 'AVMA_Moss';  // from the Builder filename that created this script
-let expInfo = {'participant': '', 'group': ['', 'C', 'P'], 'set': ['', 'A', 'B'], 'session': ['', 1, 2, 3, 4], 'hand': ['', 'Right', 'Left'], 'type': ['','Minimum', 'Extensive'], 'version': ['', 'Slow', 'Medium', 'Fast']};
+let expInfo = {'participant': '', 'group': ['', 'C', 'P'], 'set': ['A'], 'session': ['', 1, 2, 3, 4], 'hand': ['', 'Right', 'Left'], 'type': ['','Minimum', 'Extensive'], 'version': ['', 'Slow', 'Medium', 'Fast']};
 
 /* // schedule the experiment:
 psychoJS.schedule(psychoJS.gui.DlgFromDict({
@@ -3992,7 +3992,7 @@ function Init_StimRoutineBegin(trials) {
 
     coin = StimList[0]["Sound_P"];
     buzz = StimList[0]["Sound_N"];
-    for (var i = 0, _pj_a = num_symb_all; (i < _pj_a); i += 1) {
+    for (var i = 0, _pj_a = num_symb; (i < _pj_a); i += 1) {
         stimnum.push(StimList[i]["StimNum"]);
         symb.push(StimList[i]["Symb"]);
         symb_r.push(StimList[i]["Symb_R"]);
@@ -4015,6 +4015,7 @@ function Init_StimRoutineBegin(trials) {
           }
         }
     }
+    
     
     if (set === "A") {
       x_symb = [0, 1, 2, 3];
