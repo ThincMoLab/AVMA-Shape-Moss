@@ -4026,6 +4026,7 @@ function Init_StimRoutineBegin(trials) {
     symb_map_rnd = Math.floor(rng2 * symb_perm.length) // random interger between 0 and num_symb - 1
     symb_map_ind = symb_perm[symb_map_rnd];
     console.log(symb_map_ind)
+    symb_map_ind = [0, 1, 2, 3];
     remap_pair_rnd = Math.floor(rng3 * remap_pairs.length)
     remap_pair_1 = remap_pairs[remap_pair_rnd];
     for (i = 0, _pj_a = 4; (i < _pj_a); i += 1) {
