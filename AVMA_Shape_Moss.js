@@ -462,10 +462,10 @@ function experimentInit() {
   set = expInfo["set"];
   ////////////////////////////////////
   tr_block_hand = 4;
-  num_trials_hand = 4 //52;
+  num_trials_hand = 52;
   num_trials_cr = 2000;
-  num_criterion = 1//5;
-  num_trials = 4//52;
+  num_criterion = 5;
+  num_trials = 52;
   rt_block = 10;
   rt_new_block = 1;
   tr_block_old = 2;
@@ -589,8 +589,8 @@ function experimentInit() {
     } else if (version === "Medium") {
       // pacing: 0.5 beep interval
       prep_time_range = [0, 1.5];
-      num_trials = 60;
-      num_trials_hand = 60;
+      num_trials = 4//60;
+      num_trials_hand = 4//60;
       time_limit = 1.8;
       too_late_tol = 0.2;  // time_limit - too_late_tol = 1.6 = beep audio length (0.1s beep lead in + 1.5 s beep length) = accurate response time; 
       timing_tol_early = 0.1;
@@ -4178,6 +4178,16 @@ Press (space bar) to continue.`
     instr_exp_text_minimum = `Thank you for participating in our study!
     
 This study has 2 sessions and it will take about 50-60 minutes today. 
+
+Once you start, you can take a break between rounds, Please DO NOT turn off your web browser until you complete the task, unless you decide to withdraw from this study.
+
+
+Press (space bar) to continue.`
+    ;
+
+    instr_exp_text_minimum = `Thank you for participating in our study!
+    
+This is a one-session study and it will take about 50-60 minutes today. 
 
 Once you start, you can take a break between rounds, Please DO NOT turn off your web browser until you complete the task, unless you decide to withdraw from this study.
 
