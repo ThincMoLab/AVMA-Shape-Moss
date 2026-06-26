@@ -456,10 +456,10 @@ function experimentInit() {
   set = expInfo["set"];
   ////////////////////////////////////
   tr_block_hand = 4;
-  num_trials_hand = 52;
+  num_trials_hand = 4 //52;
   num_trials_cr = 2000;
-  num_criterion = 5;
-  num_trials = 52;
+  num_criterion = 1//5;
+  num_trials = 4//52;
   rt_block = 10;
   rt_new_block = 1;
   tr_block_old = 2;
