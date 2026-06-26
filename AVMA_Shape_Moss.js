@@ -142,7 +142,7 @@ psychoJS.start({
     {'name': 'media/dmnb.png', 'path': './media/dmnb.png'},
     {'name': 'media/dmnb_g.png', 'path': './media/dmnb_g.png'},
     {'name': 'media/dmnb_r.png', 'path': './media/dmnb_r.png'},
-    {'name': 'media/shape_right_background.png', 'path': './media/shape_background.png'},
+    {'name': 'media/shape_right_background.png', 'path': './media/shape_right_background.png'},
     {'name': 'media/shape_reverse_background.png', 'path': './media/shape_reverse_background.png'},
     {'name': 'media/coin.wav', 'path': './media/coin.wav'},
     {'name': 'media/buzz.wav', 'path': './media/buzz.wav'},
