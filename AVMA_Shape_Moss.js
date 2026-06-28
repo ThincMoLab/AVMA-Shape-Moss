@@ -547,9 +547,9 @@ function experimentInit() {
     } else if (training_vol === 'Minimum' && session <= 2) {
       if ((session === 1)) {
         c = 1000
-        instr_exp = 1;
-        sound_check_yes = 1;
-        tr_hand_yes = 1;
+        instr_exp = 0;
+        sound_check_yes = 0;
+        tr_hand_yes = 0;
         tr_block_hand = 4;
         rt_hand_yes = 1;
         cr_old_yes = 1;
@@ -9202,12 +9202,13 @@ function TR_Enter_TrialsRoutineEachFrame(trials) {
         // was this correct?
         if (TR_Press.keys == key_item) {
             TR_Press.corr = 1;
-            symb_color_item = symb_g_item;
-           
+            //symb_color_item = symb_g_item;
+           feedback_col = color_p;
             
         } else {
             TR_Press.corr = 0;
-            symb_color_item = symb_r_item;
+           // symb_color_item = symb_r_item;
+           feedback_col = color_r;
             
         }
       }
@@ -9286,7 +9287,9 @@ function TR_Enter_TrialsRoutineEachFrame(trials) {
         TR_Text.setColor(new util.Color(tr_text_color));
         TR_Text.setText(tr_text);
         TR_Text.setAutoDraw(true);
-        TR_Stim_Image.setImage(symb_color_item);
+        // TR_Stim_Image.setImage(symb_color_item);
+        Stim_Shape.setFillColor(new util.Color(feedback_col));
+        Stim_Shape.setLineColor(new util.Color(feedback_col));
     }
 
     if (play_coin === 1 && play_buzz === 0) {
