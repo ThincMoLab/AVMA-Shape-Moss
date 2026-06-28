@@ -465,7 +465,7 @@ function experimentInit() {
   tr_block_hand = 4;
   num_trials_hand = 52;
   num_trials_cr = 2000;
-  num_criterion = 1// 5;
+  num_criterion = 5;
   num_trials = 52;
   rt_block = 10;
   rt_new_block = 1;
@@ -547,13 +547,13 @@ function experimentInit() {
     } else if (training_vol === 'Minimum' && session <= 2) {
       if ((session === 1)) {
         c = 1000
-        instr_exp = 0;
-        sound_check_yes = 0;
-        tr_hand_yes = 0;
+        instr_exp = 1;
+        sound_check_yes = 1;
+        tr_hand_yes = 1;
         tr_block_hand = 4;
         rt_hand_yes = 1;
-        cr_old_yes = 0;
-        rt_yes = 0;
+        cr_old_yes = 1;
+        rt_yes = 1;
         rt_block = 3;
         cr_new_yes = 1;
         rt_new_yes = 1;
@@ -590,8 +590,8 @@ function experimentInit() {
     } else if (version === "Medium") {
       // pacing: 0.5 beep interval
       prep_time_range = [0, 1.5];
-      num_trials = 4//60;
-      num_trials_hand = 4//60;
+      num_trials = 60;
+      num_trials_hand = 60;
       time_limit = 1.8;
       too_late_tol = 0.2;  // time_limit - too_late_tol = 1.6 = beep audio length (0.1s beep lead in + 1.5 s beep length) = accurate response time; 
       timing_tol_early = 0.1;
