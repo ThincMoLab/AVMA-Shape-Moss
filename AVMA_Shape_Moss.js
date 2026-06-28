@@ -465,7 +465,7 @@ function experimentInit() {
   tr_block_hand = 4;
   num_trials_hand = 52;
   num_trials_cr = 2000;
-  num_criterion = 5;
+  num_criterion = 1// 5;
   num_trials = 52;
   rt_block = 10;
   rt_new_block = 1;
@@ -548,10 +548,10 @@ function experimentInit() {
       if ((session === 1)) {
         c = 1000
         instr_exp = 1;
-        sound_check_yes = 0;
-        tr_hand_yes = 0;
+        sound_check_yes = 1;
+        tr_hand_yes = 1;
         tr_block_hand = 4;
-        rt_hand_yes = 0;
+        rt_hand_yes = 1;
         cr_old_yes = 1;
         rt_yes = 1;
         rt_block = 3;
