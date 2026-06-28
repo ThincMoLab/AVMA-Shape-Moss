@@ -157,15 +157,15 @@ title('Alpha channel (white = opaque)');
 clear; close all; clc;
 
 %% PARAMETERS
-square_size = 0.045;
+square_size = 0.07;
 line_width = 1;
 
 
 positions = [
      0.055,  0.00;
      0.09,   0.06;
-     0.15,   0.05;
-     0.185, -0.005;
+     0.125,   0.05;
+     0.16, -0.005;
 ];
 
 % Center the right-hand squares horizontally
@@ -174,7 +174,7 @@ positions(:,1) = positions(:,1) - x_mean;
 
 
 % ✅ NEW: increase spacing
-spacing_scale = 1.2;
+spacing_scale = 2.5;
 positions(:,1) = positions(:,1) * spacing_scale;
 
 
