@@ -981,7 +981,7 @@ Shape_Background = new visual.ImageStim({
   
   Stim_Shape = new visual.Rect ({
     win: psychoJS.window, name: 'Stim_Rec', units : 'height', 
-    width: [0.045, 0.045][0], height: [0.045, 0.045][1],
+    width: [0.07, 0.07][0], height: [0.07, 0.07][1],
     ori: 0, pos: [0, 0],
     lineWidth: 1, lineColor: new util.Color([1, 1, 1]),
     fillColor: new util.Color([1, 1, 1]),
