@@ -552,8 +552,8 @@ function experimentInit() {
         tr_hand_yes = 0;
         tr_block_hand = 4;
         rt_hand_yes = 1;
-        cr_old_yes = 1;
-        rt_yes = 1;
+        cr_old_yes = 0;
+        rt_yes = 0;
         rt_block = 3;
         cr_new_yes = 1;
         rt_new_yes = 1;
@@ -9208,7 +9208,7 @@ function TR_Enter_TrialsRoutineEachFrame(trials) {
         } else {
             TR_Press.corr = 0;
            // symb_color_item = symb_r_item;
-           feedback_col = color_r;
+           feedback_col = color_n;
             
         }
       }
