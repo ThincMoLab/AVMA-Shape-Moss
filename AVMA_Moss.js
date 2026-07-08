@@ -25,7 +25,7 @@ psychoJS.openWindow({
 
 // store info about the experiment session:
 let expName = 'AVMA_Moss';  // from the Builder filename that created this script
-let expInfo = {'participant': '', 'group': ['', 'C', 'P'], 'set': ['', 'A', 'B'], 'session': ['', 1, 2, 3, 4], 'hand': ['', 'Right', 'Left'], 'type': ['','Minimum', 'Extensive'], 'version': ['', 'Slow', 'Medium', 'Fast']};
+let expInfo = {'participant': '', 'group': ['', 'C', 'P'], 'set': ['', 'A', 'B'], 'session': ['', 1, 2, 3, 4, 5], 'hand': ['', 'Right', 'Left'], 'type': ['','Minimum', 'Extensive'], 'version': ['', 'Slow', 'Medium', 'Fast']};
 
 /* // schedule the experiment:
 psychoJS.schedule(psychoJS.gui.DlgFromDict({
@@ -489,7 +489,7 @@ function experimentInit() {
     refresh_exp = 1;
     a = 1000
   } else { 
-    if (training_vol === 'Extensive' && session <= 4) {
+    if (training_vol === 'Extensive' && session <= 5) {
       b = 1000
       if ((session === 1)) {
         instr_exp = 1;
@@ -529,8 +529,19 @@ function experimentInit() {
         
         tr_new_yes = 1;
         tr_block_new_swap = 10;
+      } else if (session === 5) {
+        instr_exp = 1;
+        sound_check_yes = 1;
+        tr_hand_yes = 1;
+        tr_block_hand = 4;
+        cr_new_yes = 1;
+        rt_new_yes = 1;
+        rt_new_block = 1;
+        tr_new_yes = 1;
+        tr_block_new_swap = 10;
       }
-    } else if (training_vol === 'Minimum' && session <= 2) {
+      
+    } else if (training_vol === 'Minimum' && session <= 2 || session === 5) {
       if ((session === 1)) {
         c = 1000
         instr_exp = 1;
@@ -555,6 +566,16 @@ function experimentInit() {
         } else if (rng1 > 1) {
           rt_new_block = 5
         }
+        tr_new_yes = 1;
+        tr_block_new_swap = 10;
+      } else if (session === 5) {
+        instr_exp = 1;
+        sound_check_yes = 1;
+        tr_hand_yes = 1;
+        tr_block_hand = 4;
+        cr_new_yes = 1;
+        rt_new_yes = 1;
+        rt_new_block = 1;
         tr_new_yes = 1;
         tr_block_new_swap = 10;
       }
@@ -593,7 +614,6 @@ function experimentInit() {
       timing_tol_late = 0.075;
     }
         
-  
   
   
   //determine which group participants are in
@@ -4233,15 +4253,49 @@ There will be at least 2 blocks, depending on how well you time your response ON
 
 Press (H, U, I, or L) to continue.`
     ;
+        } else if (session === 5) {
+          if (["right", "Right", "RIGHT"].includes(handedness)){
+            instr_tr_text_hand = `First, place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
+          
+In the first few blocks, you will see a hand appear on the screen and hear 4 beeps. You need to press the corresponding finger ON the fourth beep. 
+
+
+Sometimes, the finger will light up at the very last second. You will not have enough time to know which finger to press. This is designed to be challenging. In this case, MAKE A GUESS. You will have some chances to be right if you make a guess. 
+
+
+if you respond too late or too early, you will hear a buzzer tone. So always press one of your fingers ON the fourth beep.
+
+There will be at least 2 blocks, depending on how well you time your response ON the fourth beep.
+
+
+Press (H, U, I, or L) to continue.`
+    ;
+        }  else if (["left", "Left", "LEFT"].includes(handedness)){
+            instr_tr_text_hand = `First, place the Index, Middle, Ring, and Pinky fingers of your LEFT hand on (L, I, U, H) respectively.
+          
+In the first few blocks, you will see a hand appear on the screen and hear 4 beeps. You need to press the corresponding finger ON the fourth beep. 
+
+
+Sometimes, the finger will light up at the very last second. You will not have enough time to know which finger to press. This is designed to be challenging. In this case, MAKE A GUESS. You will have some chances to be right if you make a guess. 
+
+
+if you respond too late or too early, you will hear a buzzer tone. So always press one of your fingers ON the fourth beep.
+
+There will be at least 2 blocks, depending on how well you time your response ON the fourth beep.
+
+
+Press (H, U, I, or L) to continue.`
+    ;
         }
       }
-      
-    
+}
     instr_cr_old_text = `Good Job! You are now ready for the tasks!
     
 In the upcoming block, you will see four symbols on the screen, one at a time. Each symbol corresponds to one of (H, U, I, L). 
     
 Your job is to figure out which symbol corresponds with which key.
+    
+    
 ACCURACY is the priority, so go as slowly as you need to. The more mistakes you make, the longer this block will take.
         
     
@@ -4259,6 +4313,16 @@ Whenever you are ready, press (H, U, I, or L) to start.`
         ;
     } else if ((training_vol === 'Minimum' && session === 2) || (training_vol === 'Extensive' && session === 4)) {
       instr_rt_new_text = `In the following blocks, you are going to practice the new symbol-key map you learned yesterday. 
+        
+Your job is to press the corresponding key as quickly and as accurately as possible.
+        
+There will be ${rt_new_block} blocks with short breaks in between.
+
+
+Whenever you are ready, press (H, U, I, or L) to start.`
+        ;
+    } else if ((training_vol === 'Minimum' && session === 5) || (training_vol === 'Extensive' && session === 5)) {
+      instr_rt_new_text = `In the following blocks, you are going to practice the symbol-key map you just recalled. 
         
 Your job is to press the corresponding key as quickly and as accurately as possible.
         
@@ -4328,19 +4392,33 @@ Remember, the symbol may show up very late. In this case, MAKE A GUESS. This tas
 Press (H, U, I, or L) to start.`
     ;
 
-    
-    instr_cr_new_text =  `
+    if (session < 5){
+        instr_cr_new_text =  `
 
 Now, you will see the same four symbols, but this time they may correspond with a different key (H, U, I, L).
-    
+      
 Your job is to figure out the new association between the symbols and the keys.
-    
-    
+      
+      
 ACCURACY is the priority, so go as slowly as you need to. The more mistakes you make, the longer this block will take.
-    
-    
+      
+      
 Press (H, U, I, or L) to start.`
-    ;
+      ;
+    } else if (session === 5) {
+       
+        instr_cr_new_text =  `
+Like what you did about a month ago, you will see four symbols, one at a time. Each symbol corresponds to one of (H, U, I, L).
+
+Your job is to recall the symbol-key map.
+
+ACCURACY is the priority, so go as slowly as you need to. The more mistakes you make, the longer this block will take.
+      
+      
+Press (H, U, I, or L) to start.`
+    } 
+          
+
     if ((training_vol === 'Minimum' && session === 1) || (training_vol === 'Extensive' && session === 3)) {
     instr_tr_new_text = `Great job.
 
@@ -4357,6 +4435,18 @@ Press (H, U, I, or L) to start.`
       instr_tr_new_text = `Great job.
 
 In the last ${tr_block_new_swap} blocks, use the symbol-key map you just practiced: 
+Press the corresponding key ON the fourth beep. 
+                
+Remember, the symbol may show up very late. In this case, MAKE A GUESS. This task is designed to be difficult, so it is okay to make a guess.
+    
+                
+            
+Press (H, U, I, or L) to start.`
+    ;
+    } else if ((training_vol === 'Minimum' && session === 5) || (training_vol === 'Extensive' && session === 5)) {
+      instr_tr_new_text = `Great job.
+
+In the last ${tr_block_new_swap} blocks, use the symbol-key map you just recalled: 
 Press the corresponding key ON the fourth beep. 
                 
 Remember, the symbol may show up very late. In this case, MAKE A GUESS. This task is designed to be difficult, so it is okay to make a guess.
