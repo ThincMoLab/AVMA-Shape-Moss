@@ -485,7 +485,7 @@ function experimentInit() {
   rng2 = myrng()
   rng3 = myrng()
 
-  if (training_vol.length === 0 || isNaN(participant) || isNaN(session) || handedness.length === 0 || version.length === 0 || session > 4) {
+  if (training_vol.length === 0 || isNaN(participant) || isNaN(session) || handedness.length === 0 || version.length === 0 || session > 6) {
     refresh_exp = 1;
     a = 1000
   } else { 
@@ -597,8 +597,8 @@ function experimentInit() {
     } else if (version === "Medium") {
       // pacing: 0.5 beep interval
       prep_time_range = [0, 1.5];
-      num_trials = 60;
-      num_trials_hand = 60;
+      num_trials = 4//60;
+      num_trials_hand = 4//60;
       time_limit = 1.8;
       too_late_tol = 0.2;  // time_limit - too_late_tol = 1.6 = beep audio length (0.1s beep lead in + 1.5 s beep length) = accurate response time; 
       timing_tol_early = 0.1;
@@ -4125,7 +4125,7 @@ function Init_StimRoutineEnd(trials) {
 
     refresh_exp_text = `It seems that you did not type in correct information on the previous page.
     
-Please press (f5) and then input your "participant ID", select the "session" number (1, 2, or 3), and select "right" or "left" hand.`
+Please press (f5) and then input your "participant ID", select the "session" number (1, 2, or 5), and select "right" or "left" hand.`
     ;
 
     instr_end_exp_text = `Great job! You have completed the task.
