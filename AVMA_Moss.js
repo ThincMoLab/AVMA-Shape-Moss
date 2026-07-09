@@ -451,7 +451,7 @@ function experimentInit() {
   tr_block_hand = 4;
   num_trials_hand = 52;
   num_trials_cr = 2000;
-  num_criterion = 1// 5;
+  num_criterion = 5;
   num_trials = 52;
   rt_block = 10;
   rt_new_block = 1;
@@ -588,8 +588,8 @@ function experimentInit() {
     if (version === "Fast") {
       // pacing: 0.4 beep interval
       prep_time_range = [0, 1.2];
-      num_trials = 52;
-      num_trials_hand = 52;
+      num_trials = 60;
+      num_trials_hand = 60;
       time_limit = 1.5;
       too_late_tol = 0.2;  // time_limit - too_late_tol = 1.3 = beep audio length (0.1s beep lead in + 1.2 s beep length) = accurate response time; 
       timing_tol_early = 0.1;
@@ -597,8 +597,8 @@ function experimentInit() {
     } else if (version === "Medium") {
       // pacing: 0.5 beep interval
       prep_time_range = [0, 1.5];
-      num_trials = 4//60;
-      num_trials_hand = 4//60;
+      num_trials = 60;
+      num_trials_hand = 60;
       time_limit = 1.8;
       too_late_tol = 0.2;  // time_limit - too_late_tol = 1.6 = beep audio length (0.1s beep lead in + 1.5 s beep length) = accurate response time; 
       timing_tol_early = 0.1;
@@ -4258,7 +4258,7 @@ Press (H, U, I, or L) to continue.`
     ;
       }
     }
-    } else if (training_vol === 'Extensive') {
+   } else if (training_vol === 'Extensive') {
         if (session === 1) {
           instr_tr_text_hand = `Great Job!
     
@@ -9848,6 +9848,8 @@ function Instr_RTRoutineBegin(trials) {
       block_count = 0;
     } else if (session === 4) {
       block_count = 0;
+    } else if (session === 5) {
+      block_count = 0;
     }
     symb = symb_map;
     symb_g = symb_g_map;
@@ -9983,6 +9985,8 @@ function Instr_RT_NewRoutineBegin(trials) {
     } else  if ((session === 3)) {
       block_count = 0;
     } else if (session === 4) {
+      block_count = 0;
+    } else if (session === 5) {
       block_count = 0;
     }
     
