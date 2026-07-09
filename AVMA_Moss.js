@@ -451,7 +451,7 @@ function experimentInit() {
   tr_block_hand = 4;
   num_trials_hand = 52;
   num_trials_cr = 2000;
-  num_criterion = 5;
+  num_criterion = 1// 5;
   num_trials = 52;
   rt_block = 10;
   rt_new_block = 1;
@@ -4207,6 +4207,7 @@ Press (H, U, I, or L) to continue.`
 
 
     if (training_vol === 'Minimum') {
+      if (session < 5) {
       instr_tr_text_hand = `Great Job!
     
 In the following blocks, you will hear 4 beeps. You need to press the corresponding finger ON the fourth beep. 
@@ -4222,6 +4223,41 @@ There will be at least 4 blocks, depending on how well you time your response ON
 
 Press (H, U, I, or L) to continue.`
     ;
+    } else if (session === 5) {
+      if (["right", "Right", "RIGHT"].includes(handedness)){
+            instr_tr_text_hand = `First, place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
+          
+In the first few blocks, you will see a hand appear on the screen and hear 4 beeps. You need to press the corresponding finger ON the fourth beep. 
+
+
+Sometimes, the finger will light up at the very last second. You will not have enough time to know which finger to press. This is designed to be challenging. In this case, MAKE A GUESS. You will have some chances to be right if you make a guess. 
+
+
+if you respond too late or too early, you will hear a buzzer tone. So always press one of your fingers ON the fourth beep.
+
+There will be at least 2 blocks, depending on how well you time your response ON the fourth beep.
+
+
+Press (H, U, I, or L) to continue.`
+    ;
+      }  else if (["left", "Left", "LEFT"].includes(handedness)){
+            instr_tr_text_hand = `First, place the Index, Middle, Ring, and Pinky fingers of your LEFT hand on (L, I, U, H) respectively.
+          
+In the first few blocks, you will see a hand appear on the screen and hear 4 beeps. You need to press the corresponding finger ON the fourth beep. 
+
+
+Sometimes, the finger will light up at the very last second. You will not have enough time to know which finger to press. This is designed to be challenging. In this case, MAKE A GUESS. You will have some chances to be right if you make a guess. 
+
+
+if you respond too late or too early, you will hear a buzzer tone. So always press one of your fingers ON the fourth beep.
+
+There will be at least 2 blocks, depending on how well you time your response ON the fourth beep.
+
+
+Press (H, U, I, or L) to continue.`
+    ;
+      }
+    }
     } else if (training_vol === 'Extensive') {
         if (session === 1) {
           instr_tr_text_hand = `Great Job!
