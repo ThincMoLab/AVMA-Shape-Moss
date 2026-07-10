@@ -79,10 +79,18 @@ const TR_Old_Pre_BoolLoopScheduler = new Scheduler(psychoJS);
 flowScheduler.add(TR_Old_Pre_BoolLoopBegin, TR_Old_Pre_BoolLoopScheduler);
 flowScheduler.add(TR_Old_Pre_BoolLoopScheduler);
 flowScheduler.add(TR_Old_Pre_BoolLoopEnd);
+const RT_Dual_Pre_BoolLoopScheduler = new Scheduler(psychoJS);
+flowScheduler.add(RT_Dual_Pre_BoolLoopBegin, RT_Dual_Pre_BoolLoopScheduler);
+flowScheduler.add(RT_Dual_Pre_BoolLoopScheduler);
+flowScheduler.add(RT_Dual_Pre_BoolLoopEnd);
 const RT_BoolLoopScheduler = new Scheduler(psychoJS);
 flowScheduler.add(RT_BoolLoopBegin, RT_BoolLoopScheduler);
 flowScheduler.add(RT_BoolLoopScheduler);
 flowScheduler.add(RT_BoolLoopEnd);
+const RT_Dual_Post_BoolLoopScheduler = new Scheduler(psychoJS);
+flowScheduler.add(RT_Dual_Post_BoolLoopBegin, RT_Dual_Post_BoolLoopScheduler);
+flowScheduler.add(RT_Dual_Post_BoolLoopScheduler);
+flowScheduler.add(RT_Dual_Post_BoolLoopEnd);
 const TR_Old_Post_BoolLoopScheduler = new Scheduler(psychoJS);
 flowScheduler.add(TR_Old_Post_BoolLoopBegin, TR_Old_Post_BoolLoopScheduler);
 flowScheduler.add(TR_Old_Post_BoolLoopScheduler);
@@ -144,6 +152,8 @@ psychoJS.start({
     {'name': 'media/dmnb_r.png', 'path': './media/dmnb_r.png'},
     {'name': 'media/coin.wav', 'path': './media/coin.wav'},
     {'name': 'media/buzz.wav', 'path': './media/buzz.wav'},
+    {'name': 'media/upwardchirp.wav', 'path': './media/upwardchirp.wav'},
+    {'name': 'media/downwardchirp.wav', 'path': './media/downwardchirp.wav'},
     {'name': 'media/beep_1800.wav', 'path': './media/beep_1800.wav'},
     {'name': 'media/beep_1500.wav', 'path': './media/beep_1500.wav'},
     {'name': 'media/beep_1200.wav', 'path': './media/beep_1200.wav'},
@@ -227,6 +237,7 @@ var num_trials_cr;
 var num_criterion;
 var num_trials;
 var rt_block;
+var rt_dual_block;
 var rt_new_block;
 var tr_block_old;
 var tr_block_new_swap;
@@ -381,6 +392,10 @@ var TR_Feedback_Coin;
 var TR_Feedback_Buzz;
 var TR_Coin;
 var TR_Buzz;
+var Downwardchirp;
+var Upwardchirp;
+var downwardchirp;
+var upwardchirp;
 var Tr_Rec_Frame_Feedback;
 var TR_Feedback_Text;
 var TR_Text;
@@ -388,6 +403,7 @@ var TR_Feedback_Image;
 var Instr_RTClock;
 var Instr_RT_Text;
 var Instr_RT_Press;
+var Instr_RT_Dual_Press;
 var Instr_TR_Old_PostClock;
 var Instr_TR_Old_Post_text;
 var Instr_TR_Old_Post_Press;
@@ -454,6 +470,7 @@ function experimentInit() {
   num_criterion = 5;
   num_trials = 52;
   rt_block = 10;
+  rt_dual_block = 2;
   rt_new_block = 1;
   tr_block_old = 2;
   tr_block_new_swap = 10;
@@ -466,6 +483,7 @@ function experimentInit() {
   cr_old_yes = 0;
   cr_new_yes = 0;
   rt_yes = 0;
+  rt_dual_yes = 0;
   rt_new_yes = 0;
   tr_new_yes = 0;
   refresh_exp = 0;
@@ -498,6 +516,8 @@ function experimentInit() {
         tr_block_hand = 4;
         rt_hand_yes = 1;
         cr_old_yes = 1;
+        rt_dual_yes = 1;
+        rt_dual_block = 2;
         rt_yes = 1;
         rt_block = 7;
       } else if (session === 2) {
@@ -512,6 +532,8 @@ function experimentInit() {
         tr_block_hand = 4;
         rt_yes = 1;
         rt_block = 1;
+        rt_dual_yes = 1;
+        rt_dual_block = 2;
         cr_new_yes = 1;
         rt_new_yes = 1;
         rt_new_block = 1;
@@ -545,13 +567,15 @@ function experimentInit() {
       if ((session === 1)) {
         c = 1000
         instr_exp = 1;
-        sound_check_yes = 1;
-        tr_hand_yes = 1;
+        sound_check_yes = 0;
+        tr_hand_yes = 0;
         tr_block_hand = 8;
-        rt_hand_yes = 1;
-        cr_old_yes = 1;
-        rt_yes = 1;
+        rt_hand_yes = 0;
+        cr_old_yes = 0;
+        rt_yes = 0;
         rt_block = 1;
+        rt_dual_yes = 1;
+        rt_dual_block = 2;
         cr_new_yes = 1;
         rt_new_yes = 1;
         rt_new_block = 1;
@@ -1422,6 +1446,7 @@ function experimentInit() {
   });
   
   Instr_RT_Press = new core.Keyboard({psychoJS: psychoJS, clock: new util.Clock(), waitForStart: true});
+  Instr_RT_Dual_Press = new core.Keyboard({psychoJS: psychoJS, clock: new util.Clock(), waitForStart: true});
   
   // Initialize components for Routine "Creat_StimSeq"
   Creat_StimSeqClock = new util.Clock();
@@ -2038,6 +2063,8 @@ function experimentInit() {
   });
   
   TR_Penalty_Press = new core.Keyboard({psychoJS: psychoJS, clock: new util.Clock(), waitForStart: true});
+  
+
   
   // Initialize components for Routine "Instr_End_Exp"
   Instr_End_ExpClock = new util.Clock();
@@ -2950,6 +2977,68 @@ function RT_BoolLoopBegin(thisScheduler) {
   return Scheduler.Event.NEXT;
 }
 
+var RT_Dual_Pre_Bool
+function RT_Dual_Pre_BoolLoopBegin(thisScheduler) {
+  instr_rt_dual_text = instr_rt_dual_pre_text
+  // set up handler to look after randomisation of conditions etc
+  RT_Dual_Pre_Bool = new TrialHandler({
+    psychoJS: psychoJS,
+    nReps: rt_dual_yes, method: TrialHandler.Method.SEQUENTIAL,
+    extraInfo: expInfo, originPath: undefined,
+    trialList: undefined,
+    seed: undefined, name: 'RT_Dual_Pre_Bool'
+  });
+  psychoJS.experiment.addLoop(RT_Dual_Pre_Bool); // add the loop to the experiment
+  currentLoop = RT_Dual_Pre_Bool;  // we're now the current loop
+
+  // Schedule all the trials in the trialList:
+  for (const thisRT_Dual_Pre_Bool of RT_Dual_Pre_Bool) {
+    const snapshot = RT_Dual_Pre_Bool.getSnapshot();
+    thisScheduler.add(importConditions(snapshot));
+    thisScheduler.add(Instr_RT_DualRoutineBegin(snapshot));
+    thisScheduler.add(Instr_RT_DualRoutineEachFrame(snapshot));
+    thisScheduler.add(Instr_RT_DualRoutineEnd(snapshot));
+    const RT_Dual_BlockLoopScheduler = new Scheduler(psychoJS);
+    thisScheduler.add(RT_Dual_BlockLoopBegin, RT_Dual_BlockLoopScheduler);
+    thisScheduler.add(RT_Dual_BlockLoopScheduler);``
+    thisScheduler.add(RT_Dual_BlockLoopEnd);
+    thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
+  }
+
+  return Scheduler.Event.NEXT;
+}
+
+var RT_Dual_Post_Bool
+function RT_Dual_Post_BoolLoopBegin(thisScheduler) {
+  instr_rt_dual_text = instr_rt_dual_post_text
+  // set up handler to look after randomisation of conditions etc
+  RT_Dual_Post_Bool = new TrialHandler({
+    psychoJS: psychoJS,
+    nReps: rt_dual_yes, method: TrialHandler.Method.SEQUENTIAL,
+    extraInfo: expInfo, originPath: undefined,
+    trialList: undefined,
+    seed: undefined, name: 'RT_Dual_Post_Bool'
+  });
+  psychoJS.experiment.addLoop(RT_Dual_Post_Bool); // add the loop to the experiment
+  currentLoop = RT_Dual_Post_Bool;  // we're now the current loop
+
+  // Schedule all the trials in the trialList:
+  for (const thisRT_Dual_Post_Bool of RT_Dual_Post_Bool) {
+    const snapshot = RT_Dual_Post_Bool.getSnapshot();
+    thisScheduler.add(importConditions(snapshot));
+    thisScheduler.add(Instr_RT_DualRoutineBegin(snapshot));
+    thisScheduler.add(Instr_RT_DualRoutineEachFrame(snapshot));
+    thisScheduler.add(Instr_RT_DualRoutineEnd(snapshot));
+    const RT_Dual_BlockLoopScheduler = new Scheduler(psychoJS);
+    thisScheduler.add(RT_Dual_BlockLoopBegin, RT_Dual_BlockLoopScheduler);
+    thisScheduler.add(RT_Dual_BlockLoopScheduler);``
+    thisScheduler.add(RT_Dual_BlockLoopEnd);
+    thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
+  }
+
+  return Scheduler.Event.NEXT;
+}
+
 var RT_New_Bool;
 function RT_New_BoolLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
@@ -2964,7 +3053,7 @@ function RT_New_BoolLoopBegin(thisScheduler) {
   currentLoop = RT_New_Bool;  // we're now the current loop
 
   // Schedule all the trials in the trialList:
-  for (const thisRT_Bool of RT_New_Bool) {
+  for (const thisRT_New_Bool of RT_New_Bool) {
     const snapshot = RT_New_Bool.getSnapshot();
     thisScheduler.add(importConditions(snapshot));
     thisScheduler.add(Instr_RT_NewRoutineBegin(snapshot));
@@ -3016,6 +3105,42 @@ function RT_BlockLoopBegin(thisScheduler) {
   return Scheduler.Event.NEXT;
 }
 
+var RT_Dual_Block;
+function RT_Dual_BlockLoopBegin(thisScheduler) {
+  // set up handler to look after randomisation of conditions etc
+  RT_Dual_Block = new TrialHandler({
+    psychoJS: psychoJS,
+    nReps: rt_dual_block, method: TrialHandler.Method.SEQUENTIAL,
+    extraInfo: expInfo, originPath: undefined,
+    trialList: undefined,
+    seed: undefined, name: 'RT_Block'
+  });
+  psychoJS.experiment.addLoop(RT_Dual_Block); // add the loop to the experiment
+  currentLoop = RT_Dual_Block;  // we're now the current loop
+
+  // Schedule all the trials in the trialList:
+  for (const thisRT_Dual_Block of RT_Dual_Block) {
+    const snapshot = RT_Dual_Block.getSnapshot();
+    thisScheduler.add(importConditions(snapshot));
+    thisScheduler.add(Creat_StimSeqRoutineBegin(snapshot));
+    thisScheduler.add(Creat_StimSeqRoutineEachFrame(snapshot));
+    thisScheduler.add(Creat_StimSeqRoutineEnd(snapshot));
+    thisScheduler.add(Instr_Block_NumRoutineBegin(snapshot));
+    thisScheduler.add(Instr_Block_NumRoutineEachFrame(snapshot));
+    thisScheduler.add(Instr_Block_NumRoutineEnd(snapshot));
+    //thisScheduler.add(CountDownRoutineBegin(snapshot));
+    //thisScheduler.add(CountDownRoutineEachFrame(snapshot));
+    //thisScheduler.add(CountDownRoutineEnd(snapshot));
+    const RT_IterLoopScheduler = new Scheduler(psychoJS);
+    thisScheduler.add(RT_Dual_IterLoopBegin, RT_Dual_IterLoopScheduler);
+    thisScheduler.add(RT_Dual_IterLoopScheduler);
+    thisScheduler.add(RT_Dual_IterLoopEnd);
+    thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
+  }
+
+  return Scheduler.Event.NEXT;
+}
+
 var RT_New_Block;
 function RT_New_BlockLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
@@ -3042,10 +3167,10 @@ function RT_New_BlockLoopBegin(thisScheduler) {
     //thisScheduler.add(CountDownRoutineBegin(snapshot));
     //thisScheduler.add(CountDownRoutineEachFrame(snapshot));
     //thisScheduler.add(CountDownRoutineEnd(snapshot));
-    const RT_IterLoopScheduler = new Scheduler(psychoJS);
-    thisScheduler.add(RT_IterLoopBegin, RT_IterLoopScheduler);
-    thisScheduler.add(RT_IterLoopScheduler);
-    thisScheduler.add(RT_IterLoopEnd);
+    const RT_Dual_IterLoopScheduler = new Scheduler(psychoJS);
+    thisScheduler.add(RT_Dual_IterLoopBegin, RT_Dual_IterLoopScheduler);
+    thisScheduler.add(RT_Dual_IterLoopScheduler);
+    thisScheduler.add(RT_Dual_IterLoopEnd);
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
   }
 
@@ -3085,6 +3210,38 @@ function RT_IterLoopBegin(thisScheduler) {
   return Scheduler.Event.NEXT;
 }
 
+var RT_Dual_Iter;
+function RT_Dual_IterLoopBegin(thisScheduler) {
+  // set up handler to look after randomisation of conditions etc
+  RT_Dual_Iter = new TrialHandler({
+    psychoJS: psychoJS,
+    nReps: num_trials, method: TrialHandler.Method.SEQUENTIAL,
+    extraInfo: expInfo, originPath: undefined,
+    trialList: undefined,
+    seed: undefined, name: 'RT_Iter'
+  });
+  psychoJS.experiment.addLoop(RT_Dual_Iter); // add the loop to the experiment
+  currentLoop = RT_Dual_Iter;  // we're now the current loop
+
+  // Schedule all the trials in the trialList:
+  for (const thisRT_Dual_Iter of RT_Dual_Iter) {
+    const snapshot = RT_Dual_Iter.getSnapshot();
+    thisScheduler.add(importConditions(snapshot));
+    thisScheduler.add(Pre_TrialRoutineBegin(snapshot));
+    thisScheduler.add(Pre_TrialRoutineEachFrame(snapshot));
+    thisScheduler.add(Pre_TrialRoutineEnd(snapshot));
+    thisScheduler.add(RT_Dual_Enter_TrialRoutineBegin(snapshot));
+    thisScheduler.add(RT_Dual_Enter_TrialRoutineEachFrame(snapshot));
+    thisScheduler.add(RT_Dual_Enter_TrialRoutineEnd(snapshot));
+    thisScheduler.add(RT_FeedbackRoutineBegin(snapshot));
+    thisScheduler.add(RT_FeedbackRoutineEachFrame(snapshot));
+    thisScheduler.add(RT_FeedbackRoutineEnd(snapshot));
+    thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
+  }
+
+  return Scheduler.Event.NEXT;
+}
+
 
 function RT_IterLoopEnd() {
   psychoJS.experiment.removeLoop(RT_Iter);
@@ -3092,9 +3249,21 @@ function RT_IterLoopEnd() {
   return Scheduler.Event.NEXT;
 }
 
+function RT_Dual_IterLoopEnd() {
+  psychoJS.experiment.removeLoop(RT_Dual_Iter);
+
+  return Scheduler.Event.NEXT;
+}
+
 
 function RT_BlockLoopEnd() {
   psychoJS.experiment.removeLoop(RT_Block);
+
+  return Scheduler.Event.NEXT;
+}
+
+function RT_Dual_BlockLoopEnd() {
+  psychoJS.experiment.removeLoop(RT_Dual_Block);
 
   return Scheduler.Event.NEXT;
 }
@@ -3112,8 +3281,14 @@ function RT_BoolLoopEnd() {
   return Scheduler.Event.NEXT;
 }
 
+function RT_Dual_BoolLoopEnd() {
+  psychoJS.experiment.removeLoop(RT_Dual_Bool);
+
+  return Scheduler.Event.NEXT;
+}
+
 function RT_New_BoolLoopEnd() {
-  psychoJS.experiment.removeLoop(RT_Bool);
+  psychoJS.experiment.removeLoop(RT_New_Bool);
 
   return Scheduler.Event.NEXT;
 }
@@ -3949,6 +4124,8 @@ function Import_Stim_FileRoutineEnd(trials) {
 var coin;
 var beep;
 var buzz;
+var upwardchirp;
+var downwardchirp;
 var symb_map_rnd;
 var remap_pair_rnd;
 var remap_pair_1 = [];
@@ -3982,6 +4159,9 @@ function Init_StimRoutineBegin(trials) {
 
     coin = StimList[0]["Sound_P"];
     buzz = StimList[0]["Sound_N"];
+    upwardchirp = StimList[0]["Upwardchirp"];
+    downwardchirp = StimList[0]["Downwardchirp"];
+
     for (var i = 0, _pj_a = num_symb_all; (i < _pj_a); i += 1) {
         stimnum.push(StimList[i]["StimNum"]);
         symb.push(StimList[i]["Symb"]);
@@ -4095,6 +4275,9 @@ var instr_rt_text_hand;
 var instr_tr_text_hand;
 var instr_cr_old_text;
 var instr_rt_text;
+var instr_rt_dual_text;
+var instr_rt_dual_pre_text;
+var instr_rt_dual_post_text;
 var instr_rt_new_text;
 var instr_tr_old_pre_text;
 var instr_tr_old_post_text;
@@ -4368,6 +4551,37 @@ There will be ${rt_new_block} blocks with short breaks in between.
 Whenever you are ready, press (H, U, I, or L) to start.`
         ;
     }
+
+
+    instr_rt_dual_pre_text = `Now you are going to use the symbol-key map you learned. 
+        
+Your job is to press the corresponding key as quickly and as accurately as possible.
+
+There will be ${rt_dual_block} blocks with short breaks in between.
+
+At the same time, you need to perform a tone counting task concurrently: When a symbol appears, either a upward or downward chirp will play. You need to also count how many upward chirps you hear and tell us the number you count at the end of each block.
+    
+Press ( A ) to hear the upward chirp sound.
+
+Press ( W ) to hear the downward chirp sound.
+    
+Whenever you are ready, press (H, U, I, or L) to start.`
+    ;
+
+    instr_rt_dual_post_text = `Good job so far. Now you are going to perform the symbol-key map task and the tone counting task concurrently. 
+        
+Your job is to press the corresponding key as quickly and as accurately as possible.
+
+There will be ${rt_dual_block} blocks with short breaks in between.
+
+At the same time, you need to perform a tone counting task concurrently: When a symbol appears, either a upward or downward chirp will play. You need to also count how many upward chirps you hear and tell us the number you count at the end of each block.
+    
+Press ( A ) to hear the upward chirp sound.
+
+Press ( W ) to hear the downward chirp sound.
+    
+Whenever you are ready, press (H, U, I, or L) to start.`
+    ;
 
     if ((training_vol === 'Extensive' && session === 1)) {
         instr_rt_text = `Now you are going to practice the symbol-key map you learned. 
@@ -6094,6 +6308,7 @@ function Sound_Exit_TextRoutineEnd(trials) {
 
 var stim_type;
 var remap;
+var dual;
 var block_count;
 var _Instr_RT_Hand_Key_allKeys;
 var Instr_RT_HandComponents;
@@ -6107,6 +6322,7 @@ function Instr_RT_HandRoutineBegin(trials) {
     block_type = "RT";
     stim_type = "Hand";
     remap = 0;
+    dual = 0;
     block_count = 0;
     
     Instr_RT_Hand_Rext.setText(instr_rt_text_hand);
@@ -6218,7 +6434,8 @@ function Instr_RT_HandRoutineEnd(trials) {
   };
 }
 
-
+var Upwardchirp_N;
+var toneArray;
 var trial_count;
 var repeat_count;
 var trial_count_item;
@@ -6352,6 +6569,18 @@ function Creat_StimSeqRoutineBegin(trials) {
         }
     }
     
+
+    // creat dual task sound array of 0 and 1, with 1 representing upward chirp sound
+    Upwardchirp_N = Math.floor(Math.random() * 26) + 25;
+
+    toneArray = [
+        ...Array(Upwardchirp_N).fill(1),
+        ...Array(num_trials - Upwardchirp_N).fill(0)
+    ];
+    
+    util.shuffle(toneArray);
+
+
     TR_Beep = new sound.Sound({
       win: psychoJS.window,
       value: beep,
@@ -6409,6 +6638,21 @@ function Creat_StimSeqRoutineBegin(trials) {
       secs: -1,
       });
     
+    Upwardchirp = new sound.Sound({
+    win: psychoJS.window,
+    value: upwardchirp,
+    secs: (- 1),
+    });
+
+    Upwardchirp.setVolume(1.0);
+  
+    Downwardchirp = new sound.Sound({
+    win: psychoJS.window,
+    value: downwardchirp,
+    secs: (- 1),
+    });
+    Downwardchirp.setVolume(1.0);
+
     // keep track of which components have finished
     Creat_StimSeqComponents = [];
     
@@ -6605,6 +6849,7 @@ function Pre_Trial_HandRoutineEnd(trials) {
     psychoJS.experiment.addData("key", key_item);
     psychoJS.experiment.addData("block_type", block_type);
     psychoJS.experiment.addData("remap", remap);
+    psychoJS.experiment.addData("dual", dual);
     psychoJS.experiment.addData("repeat_count", repeat_count);
     psychoJS.experiment.addData("trial_Count", trial_count);
     psychoJS.experiment.addData("grp_stop", grp_stop);
@@ -6973,6 +7218,7 @@ function Instr_TR_HandRoutineBegin(trials) {
     block_type = "TR";
     stim_type = "Hand";
     remap = 0;
+    dual = 0;
     block_count = 0;
     
     // keep track of which components have finished
@@ -8362,6 +8608,7 @@ function Instr_CR_OldRoutineBegin(trials) {
     stim_type = "Symb";
     block_count = 0;
     remap = 0;
+    dual = 0;
     symb = symb_map;
     symb_g = symb_g_map;
     symb_r = symb_r_map;
@@ -8587,6 +8834,7 @@ function Pre_TrialRoutineEnd(trials) {
     psychoJS.experiment.addData("key", key_item);
     psychoJS.experiment.addData("block_type", block_type);
     psychoJS.experiment.addData("remap", remap);
+    psychoJS.experiment.addData("dual", dual);
     psychoJS.experiment.addData("repeat_count", repeat_count);
     psychoJS.experiment.addData("trial_Count", trial_count);
     psychoJS.experiment.addData("grp_stop", grp_stop);
@@ -9016,6 +9264,7 @@ function Instr_TR_Old_PreRoutineBegin(trials) {
     block_type = "TR";
     stim_type = "Symb";
     remap = 0;
+    dual = 0;
     block_count = 0;
     symb = symb_map;
     symb_g = symb_g_map;
@@ -9840,6 +10089,7 @@ function Instr_RTRoutineBegin(trials) {
     block_type = "RT";
     stim_type = "Symb";
     remap = 0;
+    dual = 0;
     if ((session === 1)) {
       block_count = 0;
     } else if ((session === 2)) {
@@ -9960,7 +10210,230 @@ function Instr_RTRoutineEnd(trials) {
   };
 }
 
+var _Instr_RT_Press_allKeys;
+var Instr_RT_Components;
+var Instr_RT_Dual_Press_allKeys;
+function Instr_RT_DualRoutineBegin(trials) {
+  return function () {
+    //------Prepare to start Routine 'Instr_RT'-------
+    t = 0;
+    Instr_RTClock.reset(); // clock
+    frameN = -1;
+    // update component parameters for each repeat
+    Instr_RT_Text.setText(instr_rt_dual_text);
+    Instr_RT_Press.keys = undefined;
+    Instr_RT_Press.rt = undefined;
+    _Instr_RT_Press_allKeys = [];
+    block_type = "RT";
+    stim_type = "Symb";
+    remap = 0;
+    dual = 1;
+    if ((session === 1)) {
+      block_count = 0;
+    } else if ((session === 2)) {
+      block_count = 0;
+    } else  if ((session === 3)) {
+      block_count = 0;
+    } else if (session === 4) {
+      block_count = 0;
+    } else if (session === 5) {
+      block_count = 0;
+    }
+    symb = symb_map;
+    symb_g = symb_g_map;
+    symb_r = symb_r_map;
+    
+    Upwardchirp = new sound.Sound({
+    win: psychoJS.window,
+    value: upwardchirp,
+    secs: (- 1),
+    });
 
+    Upwardchirp.setVolume(1);
+  
+    Downwardchirp = new sound.Sound({
+    win: psychoJS.window,
+    value: downwardchirp,
+    secs: (- 1),
+    });
+    Downwardchirp.setVolume(1);
+
+
+    // keep track of which components have finished
+    Instr_RTComponents = [];
+    Instr_RTComponents.push(Instr_RT_Text);
+    Instr_RTComponents.push(Instr_RT_Press);
+    Instr_RTComponents.push(Instr_RT_Dual_Press);
+    Instr_RTComponents.push(Upwardchirp);
+    Instr_RTComponents.push(Downwardchirp);
+    for (const thisComponent of Instr_RTComponents)
+      if ('status' in thisComponent)
+        thisComponent.status = PsychoJS.Status.NOT_STARTED;
+    
+    return Scheduler.Event.NEXT;
+  };
+}
+
+
+function Instr_RT_DualRoutineEachFrame(trials) {
+  return function () {
+    //------Loop for each frame of Routine 'Instr_RT'-------
+    let continueRoutine = true; // until we're told otherwise
+    // get current time
+    t = Instr_RTClock.getTime();
+    frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
+    // update/draw components on each frame
+    
+    // *Instr_RT_Text* updates
+    if (t >= 0.0 && Instr_RT_Text.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      Instr_RT_Text.tStart = t;  // (not accounting for frame time here)
+      Instr_RT_Text.frameNStart = frameN;  // exact frame index
+      
+      Instr_RT_Text.setAutoDraw(true);
+    }
+
+    // for listening to the dual task sound
+
+    if (t >= 0.0 && Instr_RT_Dual_Press.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      Instr_RT_Dual_Press.tStart = t;  // (not accounting for frame time here)
+      Instr_RT_Dual_Press.frameNStart = frameN;  // exact frame index
+      
+      // keyboard checking is just starting
+      psychoJS.window.callOnFlip(function() { Instr_RT_Dual_Press.clock.reset(); });  // t=0 on next screen flip
+      psychoJS.window.callOnFlip(function() { Instr_RT_Dual_Press.start(); }); // start on screen flip
+      psychoJS.window.callOnFlip(function() { Instr_RT_Dual_Press.clearEvents(); });
+    }
+
+    if (Instr_RT_Dual_Press.status === PsychoJS.Status.STARTED) {
+      let theseKeys = Instr_RT_Dual_Press.getKeys({keyList: ['a', 'w'], waitRelease: false});
+      __instr_RT_Dual_Press_allKeys = _instr_RT_Dual_Press_allKeys.concat(theseKeys);
+      if (_instr_RT_Dual_Press_allKeys.length > 0) {
+        Instr_RT_Dual_Press.keys = _instr_RT_Dual_Press_allKeys[0].name;  // just the last key pressed
+        Instr_RT_Dual_Press.rt = _instr_RT_Dual_Press_allKeys[0].rt;
+      }
+    }
+    
+    // start/stop sound_check_coin
+    if (Instr_RT_Dual_Press.keys === "a" && Upwardchirp.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      Upwardchirp.tStart = t;  // (not accounting for frame time here)
+      Upwardchirp.frameNStart = frameN;  // exact frame index
+      temp_t = Upwardchirp.tStart
+
+
+      psychoJS.window.callOnFlip(function(){ Upwardchirp.play(); });  // screen flip
+      Upwardchirp.status = PsychoJS.Status.STARTED;
+    }
+    if (t >= (Upwardchirp.getDuration() + Upwardchirp.tStart) && Upwardchirp.status === PsychoJS.Status.STARTED) {
+      Upwardchirp.stop();  // stop the sound (if longer than duration)
+      Upwardchirp.status = PsychoJS.Status.FINISHED;
+    }
+    // start/stop sound_check_buzz
+    if (Instr_RT_Dual_Press.keys === "w" && Downwardchirp.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      Downwardchirp.tStart = t;  // (not accounting for frame time here)
+      Downwardchirp.frameNStart = frameN;  // exact frame index
+      temp_t = Downwardchirp.tStart
+
+
+      psychoJS.window.callOnFlip(function(){ Downwardchirp.play(); });  // screen flip
+      Downwardchirp.status = PsychoJS.Status.STARTED;
+    }
+    if (t >= (Downwardchirp.getDuration() + Downwardchirp.tStart) && Downwardchirp.status === PsychoJS.Status.STARTED) {
+      Downwardchirp.stop();  // stop the sound (if longer than duration)
+      Downwardchirp.status = PsychoJS.Status.FINISHED;
+    }
+
+    // *Instr_RT_Press* updates
+    if (t >= 0.0 && Instr_RT_Press.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      Instr_RT_Press.tStart = t;  // (not accounting for frame time here)
+      Instr_RT_Press.frameNStart = frameN;  // exact frame index
+      
+      // keyboard checking is just starting
+      psychoJS.window.callOnFlip(function() { Instr_RT_Press.clock.reset(); });  // t=0 on next screen flip
+      psychoJS.window.callOnFlip(function() { Instr_RT_Press.start(); }); // start on screen flip
+      psychoJS.window.callOnFlip(function() { Instr_RT_Press.clearEvents(); });
+    }
+
+    if (Instr_RT_Press.status === PsychoJS.Status.STARTED) {
+      let theseKeys = Instr_RT_Press.getKeys({keyList: ['h', 'u', 'i', 'l'], waitRelease: false});
+      _Instr_RT_Press_allKeys = _Instr_RT_Press_allKeys.concat(theseKeys);
+      if (_Instr_RT_Press_allKeys.length > 0) {
+        Instr_RT_Press.keys = _Instr_RT_Press_allKeys[0].name;  // just the first key pressed
+        Instr_RT_Press.rt = _Instr_RT_Press_allKeys[0].rt;
+        // a response ends the routine
+        continueRoutine = false;
+      }
+    }
+    
+    if (Upwardchirp.status === PsychoJS.Status.FINISHED || Downwardchirp.status === PsychoJS.Status.FINISHED) {
+      // keep track of start time/frame for later
+      //Coin_Tone_Text.setAutoDraw(false);
+      //Buzz_Tone_Text.setAutoDraw(false);
+      continueRoutine = false;
+    }
+
+    // check for quit (typically the Esc key)
+    if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
+      return quitPsychoJS('The [Escape] key was pressed. Goodbye!', false);
+    }
+    
+    // check if the Routine should terminate
+    if (!continueRoutine) {  // a component has requested a forced-end of Routine
+      return Scheduler.Event.NEXT;
+    }
+    
+    continueRoutine = false;  // reverts to True if at least one component still running
+    for (const thisComponent of Instr_RTComponents)
+      if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
+        continueRoutine = true;
+        break;
+      }
+    
+    // refresh the screen if continuing
+    if (continueRoutine) {
+      return Scheduler.Event.FLIP_REPEAT;
+    } else {
+      return Scheduler.Event.NEXT;
+    }
+  };
+}
+
+
+function Instr_RT_DualRoutineEnd(trials) {
+  return function () {
+    //------Ending Routine 'Instr_RT'-------
+    for (const thisComponent of Instr_RTComponents) {
+      if (typeof thisComponent.setAutoDraw === 'function') {
+        thisComponent.setAutoDraw(false);
+      }
+    }
+
+    psychoJS.experiment.addData('Instr_RT_Dual_Press.keys', Instr_RT_Dual_Press.keys);
+    if (typeof Instr_RT_Press.keys !== 'undefined') {  // we had a response
+        psychoJS.experiment.addData('Instr_RT_Dual_Press.rt', Instr_RT_Dual_Press.rt);
+        routineTimer.reset();
+        }
+    
+    Instr_RT_Dual_Press.stop();
+
+
+    psychoJS.experiment.addData('Instr_RT_Press.keys', Instr_RT_Press.keys);
+    if (typeof Instr_RT_Press.keys !== 'undefined') {  // we had a response
+        psychoJS.experiment.addData('Instr_RT_Press.rt', Instr_RT_Press.rt);
+        routineTimer.reset();
+        }
+    
+    Instr_RT_Press.stop();
+    // the Routine "Instr_RT" was not non-slip safe, so reset the non-slip timer
+    routineTimer.reset();
+    
+    return Scheduler.Event.NEXT;
+  };
+}
 
 var _Instr_RT_Press_allKeys;
 var Instr_RTComponents;
@@ -9978,6 +10451,7 @@ function Instr_RT_NewRoutineBegin(trials) {
     block_type = "RT";
     stim_type = "Symb";
     remap = 1;
+    dual = 0;
     if ((session === 1)) {
         block_count = 0;
     } else if ((session === 2)) {
@@ -10116,6 +10590,7 @@ function Instr_TR_Old_PostRoutineBegin(trials) {
     block_type = "TR";
     stim_type = "Symb";
     remap = 0;
+    dual = 0;
     block_count = 0;
     
     symb = symb_map;
@@ -10245,7 +10720,7 @@ function Instr_CR_NewRoutineBegin(trials) {
     stim_type = "Symb";
     block_count = 0;
     remap = 1;
-    
+    dual = 0;
     if (grp_stop === 1) {
         symb = symb_map;
         symb_g = symb_g_map;
@@ -10589,6 +11064,7 @@ function Instr_TR_NewRoutineBegin(trials) {
     block_type = "TR";
     stim_type = "Symb";
     remap = 1;
+    dual = 0;
     block_count = 0;
     if (grp_stop === 1) {
         symb = symb_map;
