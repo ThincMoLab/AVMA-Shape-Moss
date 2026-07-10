@@ -568,7 +568,7 @@ function experimentInit() {
       if ((session === 1)) {
         c = 1000
         instr_exp = 1;
-        sound_check_yes = 1;
+        sound_check_yes = 0;
         tr_hand_yes = 0;
         tr_block_hand = 8;
         rt_hand_yes = 0;
