@@ -10339,7 +10339,7 @@ function Instr_RT_DualRoutineEachFrame(trials) {
     }
     if (t >= (Upwardchirp.getDuration() + Upwardchirp.tStart) && Upwardchirp.status === PsychoJS.Status.STARTED) {
       Upwardchirp.stop();  // stop the sound (if longer than duration)
-      Upwardchirp.status = PsychoJS.Status.FINISHED;
+      Upwardchirp.status = PsychoJS.Status.NOT_STARTED;
     }
     // start/stop sound_check_buzz
     if (Instr_RT_Dual_Press.keys === "w" && Downwardchirp.status === PsychoJS.Status.NOT_STARTED) {
@@ -10354,7 +10354,7 @@ function Instr_RT_DualRoutineEachFrame(trials) {
     }
     if (t >= (Downwardchirp.getDuration() + Downwardchirp.tStart) && Downwardchirp.status === PsychoJS.Status.STARTED) {
       Downwardchirp.stop();  // stop the sound (if longer than duration)
-      Downwardchirp.status = PsychoJS.Status.FINISHED;
+      Downwardchirp.status = PsychoJS.Status.NOT_STARTED;
     }
 
     // *Instr_RT_Press* updates
@@ -10376,6 +10376,8 @@ function Instr_RT_DualRoutineEachFrame(trials) {
         Instr_RT_Press.keys = _Instr_RT_Press_allKeys[0].name;  // just the first key pressed
         Instr_RT_Press.rt = _Instr_RT_Press_allKeys[0].rt;
         // a response ends the routine
+        Upwardchirp.status = PsychoJS.Status.FINISHED;
+        Downwardchirp.status = PsychoJS.Status.FINISHED;
         continueRoutine = false;
       }
     }
@@ -10417,7 +10419,7 @@ function Instr_RT_DualRoutineEachFrame(trials) {
 function Instr_RT_DualRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'Instr_RT'-------
-    for (const thisComponent of Instr_RTComponents) {
+    for (const thisComponent of Instr_Dual_RTComponents) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
