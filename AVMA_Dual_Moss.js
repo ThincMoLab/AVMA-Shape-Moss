@@ -10451,7 +10451,7 @@ function Instr_RT_DualRoutineEachFrame(trials) {
 function Instr_RT_DualRoutineEnd(trials) {
   return function () {
     //------Ending Routine 'Instr_RT'-------
-    for (const thisComponent of Instr_Dual_RTComponents) {
+    for (const thisComponent of Instr_RT_DualComponents) {
       if (typeof thisComponent.setAutoDraw === 'function') {
         thisComponent.setAutoDraw(false);
       }
