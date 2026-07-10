@@ -3281,8 +3281,14 @@ function RT_BoolLoopEnd() {
   return Scheduler.Event.NEXT;
 }
 
-function RT_Dual_BoolLoopEnd() {
-  psychoJS.experiment.removeLoop(RT_Dual_Bool);
+function RT_Dual_Pre_BoolLoopEnd() {
+  psychoJS.experiment.removeLoop(RT_Dual_Pre_Bool);
+
+  return Scheduler.Event.NEXT;
+}
+
+function RT_Dual_Post_BoolLoopEnd() {
+  psychoJS.experiment.removeLoop(RT_Dual_Post_Bool);
 
   return Scheduler.Event.NEXT;
 }
