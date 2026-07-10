@@ -568,7 +568,7 @@ function experimentInit() {
       if ((session === 1)) {
         c = 1000
         instr_exp = 1;
-        sound_check_yes = 0;
+        sound_check_yes = 1;
         tr_hand_yes = 0;
         tr_block_hand = 8;
         rt_hand_yes = 0;
@@ -5107,7 +5107,6 @@ function Instr_Sound_CheckRoutineBegin(trials) {
     return Scheduler.Event.NEXT;
   };
 }
-
 
 var playtime;
 function Instr_Sound_CheckRoutineEachFrame(trials) {
@@ -10381,12 +10380,12 @@ function Instr_RT_DualRoutineEachFrame(trials) {
       }
     }
     
-    if (Upwardchirp.status === PsychoJS.Status.FINISHED || Downwardchirp.status === PsychoJS.Status.FINISHED) {
+   /*  if (Upwardchirp.status === PsychoJS.Status.FINISHED || Downwardchirp.status === PsychoJS.Status.FINISHED) {
       // keep track of start time/frame for later
       //Coin_Tone_Text.setAutoDraw(false);
       //Buzz_Tone_Text.setAutoDraw(false);
       continueRoutine = false;
-    }
+    } */
 
     // check for quit (typically the Esc key)
     if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
