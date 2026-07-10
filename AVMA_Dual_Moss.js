@@ -249,6 +249,7 @@ var rt_hand_yes;
 var cr_old_yes;
 var cr_new_yes;
 var rt_yes;
+var rt_dual_yes;
 var rt_new_yes;
 var tr_new_yes;
 var refresh_exp;
