@@ -10217,7 +10217,7 @@ function Instr_RTRoutineEnd(trials) {
   };
 }
 
-var _Instr_RT_Press_allKeys;
+
 var Instr_RT_Components;
 var _Instr_RT_Dual_Press_allKeys;
 function Instr_RT_DualRoutineBegin(trials) {
@@ -10231,6 +10231,7 @@ function Instr_RT_DualRoutineBegin(trials) {
     Instr_RT_Press.keys = undefined;
     Instr_RT_Press.rt = undefined;
     _Instr_RT_Press_allKeys = [];
+    _Instr_RT_Dual_Press_allKeys = [];
     block_type = "RT";
     stim_type = "Symb";
     remap = 0;
