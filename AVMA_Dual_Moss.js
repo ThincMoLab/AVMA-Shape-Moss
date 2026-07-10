@@ -3027,15 +3027,49 @@ function RT_Dual_Post_BoolLoopBegin(thisScheduler) {
   for (const thisRT_Dual_Post_Bool of RT_Dual_Post_Bool) {
     const snapshot = RT_Dual_Post_Bool.getSnapshot();
     thisScheduler.add(importConditions(snapshot));
-    thisScheduler.add(Instr_RT_DualRoutineBegin(snapshot));
-    thisScheduler.add(Instr_RT_DualRoutineEachFrame(snapshot));
-    thisScheduler.add(Instr_RT_DualRoutineEnd(snapshot));
+    const Instr_RT_Dual_IterLoopScheduler = new Scheduler(psychoJS);
+    thisScheduler.add(Instr_RT_Dual_IterLoopBegin, Instr_RT_Dual_IterLoopScheduler);
+    thisScheduler.add(Instr_RT_Dual_IterLoopScheduler);
+    thisScheduler.add(Instr_RT_Dual_IterLoopEnd);
     const RT_Dual_BlockLoopScheduler = new Scheduler(psychoJS);
     thisScheduler.add(RT_Dual_BlockLoopBegin, RT_Dual_BlockLoopScheduler);
     thisScheduler.add(RT_Dual_BlockLoopScheduler);``
     thisScheduler.add(RT_Dual_BlockLoopEnd);
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
   }
+
+  return Scheduler.Event.NEXT;
+}
+
+var Instr_RT_Dual_Iter;
+function Instr_RT_Dual_IterLoopBegin(thisScheduler) {
+  // set up handler to look after randomisation of conditions etc
+  Instr_RT_Dual_Iter = new TrialHandler({
+    psychoJS: psychoJS,
+    nReps: 100, method: TrialHandler.Method.SEQUENTIAL,
+    extraInfo: expInfo, originPath: undefined,
+    trialList: undefined,
+    seed: undefined, name: 'Instr_RT_Dual_Iter'
+  });
+  psychoJS.experiment.addLoop(Instr_RT_Dual_Iter); // add the loop to the experiment
+  currentLoop = Instr_RT_Dual_Iter;  // we're now the current loop
+
+  // Schedule all the trials in the trialList:
+  for (const thisInstr_RT_Dual_Iter of Instr_RT_Dual_Iter) {
+    const snapshot = Instr_RT_Dual_Iter.getSnapshot();
+    thisScheduler.add(importConditions(snapshot));
+    thisScheduler.add(Instr_RT_DualRoutineBegin(snapshot));
+    thisScheduler.add(Instr_RT_DualRoutineEachFrame(snapshot));
+    thisScheduler.add(Instr_RT_DualRoutineEnd(snapshot));
+    thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
+  }
+
+  return Scheduler.Event.NEXT;
+}
+
+
+function Instr_RT_Dual_IterLoopEnd() {
+  psychoJS.experiment.removeLoop(Instr_RT_Dual_Iter);
 
   return Scheduler.Event.NEXT;
 }
@@ -10339,7 +10373,7 @@ function Instr_RT_DualRoutineEachFrame(trials) {
     }
     if (t >= (Upwardchirp.getDuration() + Upwardchirp.tStart) && Upwardchirp.status === PsychoJS.Status.STARTED) {
       Upwardchirp.stop();  // stop the sound (if longer than duration)
-      Upwardchirp.status = PsychoJS.Status.NOT_STARTED;
+      Upwardchirp.status = PsychoJS.Status.FINISHED;
     }
     // start/stop sound_check_buzz
     if (Instr_RT_Dual_Press.keys === "w" && Downwardchirp.status === PsychoJS.Status.NOT_STARTED) {
@@ -10354,7 +10388,7 @@ function Instr_RT_DualRoutineEachFrame(trials) {
     }
     if (t >= (Downwardchirp.getDuration() + Downwardchirp.tStart) && Downwardchirp.status === PsychoJS.Status.STARTED) {
       Downwardchirp.stop();  // stop the sound (if longer than duration)
-      Downwardchirp.status = PsychoJS.Status.NOT_STARTED;
+      Downwardchirp.status = PsychoJS.Status.FINISHED;
     }
 
     // *Instr_RT_Press* updates
@@ -10376,18 +10410,16 @@ function Instr_RT_DualRoutineEachFrame(trials) {
         Instr_RT_Press.keys = _Instr_RT_Press_allKeys[0].name;  // just the first key pressed
         Instr_RT_Press.rt = _Instr_RT_Press_allKeys[0].rt;
         // a response ends the routine
-        Upwardchirp.status = PsychoJS.Status.FINISHED;
-        Downwardchirp.status = PsychoJS.Status.FINISHED;
         continueRoutine = false;
       }
     }
     
-   /*  if (Upwardchirp.status === PsychoJS.Status.FINISHED || Downwardchirp.status === PsychoJS.Status.FINISHED) {
+    if (Upwardchirp.status === PsychoJS.Status.FINISHED || Downwardchirp.status === PsychoJS.Status.FINISHED) {
       // keep track of start time/frame for later
       //Coin_Tone_Text.setAutoDraw(false);
       //Buzz_Tone_Text.setAutoDraw(false);
       continueRoutine = false;
-    } */
+    }
 
     // check for quit (typically the Esc key)
     if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
