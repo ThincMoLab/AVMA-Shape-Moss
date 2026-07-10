@@ -10231,7 +10231,11 @@ function Instr_RT_DualRoutineBegin(trials) {
     Instr_RT_Press.keys = undefined;
     Instr_RT_Press.rt = undefined;
     _Instr_RT_Press_allKeys = [];
+
+    Instr_RT_Dual_Press.keys = undefined;
+    Instr_RT_Dual_Press.rt = undefined;
     _Instr_RT_Dual_Press_allKeys = [];
+    
     block_type = "RT";
     stim_type = "Symb";
     remap = 0;
