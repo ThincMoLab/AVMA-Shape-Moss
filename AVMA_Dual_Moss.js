@@ -10219,7 +10219,7 @@ function Instr_RTRoutineEnd(trials) {
 
 var _Instr_RT_Press_allKeys;
 var Instr_RT_Components;
-var Instr_RT_Dual_Press_allKeys;
+var _Instr_RT_Dual_Press_allKeys;
 function Instr_RT_DualRoutineBegin(trials) {
   return function () {
     //------Prepare to start Routine 'Instr_RT'-------
