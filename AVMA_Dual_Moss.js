@@ -10320,10 +10320,10 @@ function Instr_RT_DualRoutineEachFrame(trials) {
 
     if (Instr_RT_Dual_Press.status === PsychoJS.Status.STARTED) {
       let theseKeys = Instr_RT_Dual_Press.getKeys({keyList: ['a', 'w'], waitRelease: false});
-      _instr_RT_Dual_Press_allKeys = _instr_RT_Dual_Press_allKeys.concat(theseKeys);
-      if (_instr_RT_Dual_Press_allKeys.length > 0) {
-        Instr_RT_Dual_Press.keys = _instr_RT_Dual_Press_allKeys[0].name;  // just the last key pressed
-        Instr_RT_Dual_Press.rt = _instr_RT_Dual_Press_allKeys[0].rt;
+      _Instr_RT_Dual_Press_allKeys = _Instr_RT_Dual_Press_allKeys.concat(theseKeys);
+      if (_Instr_RT_Dual_Press_allKeys.length > 0) {
+        Instr_RT_Dual_Press.keys = _Instr_RT_Dual_Press_allKeys[0].name;  // just the last key pressed
+        Instr_RT_Dual_Press.rt = _Instr_RT_Dual_Press_allKeys[0].rt;
       }
     }
     
