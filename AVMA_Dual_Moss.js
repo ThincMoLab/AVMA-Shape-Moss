@@ -429,6 +429,7 @@ var Instr_End_Exp_Key;
 var CountPrompt;
 var CountEntry;
 var CountFeedback;
+var CountReportClock;
 var Text_CountDown;
 var Number_CountDown;
 var penalty_countdown;
