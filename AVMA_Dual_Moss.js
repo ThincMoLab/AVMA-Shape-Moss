@@ -10460,11 +10460,14 @@ function Instr_RT_DualRoutineEnd(trials) {
     psychoJS.experiment.addData('Instr_RT_Dual_Press.keys', Instr_RT_Dual_Press.keys);
     if (typeof Instr_RT_Press.keys !== 'undefined') {  // we had a response
         psychoJS.experiment.addData('Instr_RT_Dual_Press.rt', Instr_RT_Dual_Press.rt);
-        routineTimer.reset();
         }
     
     Instr_RT_Dual_Press.stop();
-
+    
+    let key_list = ['h', 'u', 'i', 'l'];
+    if ((key_list.includes(Instr_RT_Press.keys))) {
+        trials.finished = true;
+    }
 
     psychoJS.experiment.addData('Instr_RT_Press.keys', Instr_RT_Press.keys);
     if (typeof Instr_RT_Press.keys !== 'undefined') {  // we had a response
@@ -10473,6 +10476,8 @@ function Instr_RT_DualRoutineEnd(trials) {
         }
     
     Instr_RT_Press.stop();
+
+    
     // the Routine "Instr_RT" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
     
