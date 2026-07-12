@@ -1459,7 +1459,7 @@ function experimentInit() {
     text: 'default text',
     font: 'Arial',
     units: undefined, 
-    pos: [0, -0.25], height: 0.03,  wrapWidth: undefined, ori: 0,
+    pos: [0, 0.35], height: 0.03,  wrapWidth: undefined, ori: 0,
     color: new util.Color('white'),  opacity: 1,
     depth: 0.0 
   });
@@ -1471,7 +1471,7 @@ function experimentInit() {
     text: 'default text',
     font: 'Arial',
     units: undefined, 
-    pos: [0, -0.1], height: 0.03,  wrapWidth: undefined, ori: 0,
+    pos: [0, 0.25], height: 0.03,  wrapWidth: undefined, ori: 0,
     color: new util.Color('white'),  opacity: 1,
     depth: 0.0 
   });
