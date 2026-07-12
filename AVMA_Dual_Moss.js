@@ -427,6 +427,7 @@ var Instr_End_ExpClock;
 var Instr_End_Exp_Text;
 var Instr_End_Exp_Key;
 var CountPrompt;
+var countEntry;
 var CountFeedback;
 var Text_CountDown;
 var Number_CountDown;
@@ -1460,6 +1461,18 @@ function experimentInit() {
     depth: 0.0 
   });
   
+   CountEntry = new visual.TextStim({
+    win: psychoJS.window,
+    name: 'CountEntry',
+    alignText: 'center',
+    text: 'default text',
+    font: 'Arial',
+    units: undefined, 
+    pos: [0, -0.1], height: 0.03,  wrapWidth: undefined, ori: 0,
+    color: new util.Color('white'),  opacity: 1,
+    depth: 0.0 
+  });
+
   CountFeedback = new visual.TextStim({
     win: psychoJS.window,
     name: 'CountFeedback',
@@ -9518,6 +9531,8 @@ Whenever you are ready for the next block, press (H, U, I, or L) to continue.`
     CountFeedback.setText(countfeedback);
     CountFeedback.setAutoDraw(false);
 
+    CountEntry.setText("");
+    CountEntry.setAutoDraw(true);
     CountKeys.keys = undefined;
     CountKeys.rt = undefined;
     _CountKeys_allKeys = [];
@@ -9526,6 +9541,7 @@ Whenever you are ready for the next block, press (H, U, I, or L) to continue.`
     CountReportComponents = [];
     CountReportComponents.push(CountPrompt);
     CountReportComponents.push(CountFeedback);
+    CountReportComponents.push(CountEntry);
     CountReportComponents.push(CountKeys);
 
     for (const thisComponent of CountReportComponents)
@@ -9605,11 +9621,8 @@ function CountReportRoutineEachFrame(trials) {
             typedCount += digit;
           }
           // update screen with entered number
-          CountPrompt.setText(
-            "How many upward chirps did you hear?\n\n" +
-            "Type the number and press ENTER to see the correct answer.\n\n" +
-            typedCount
-          );
+          CountEntry.setText(typedCount);
+        
         }
 
       }
