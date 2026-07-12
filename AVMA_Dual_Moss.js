@@ -427,7 +427,7 @@ var Instr_End_ExpClock;
 var Instr_End_Exp_Text;
 var Instr_End_Exp_Key;
 var CountPrompt;
-var countEntry;
+var CountEntry;
 var CountFeedback;
 var Text_CountDown;
 var Number_CountDown;
