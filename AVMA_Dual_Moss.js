@@ -2996,9 +2996,10 @@ function RT_Dual_Pre_BoolLoopBegin(thisScheduler) {
   for (const thisRT_Dual_Pre_Bool of RT_Dual_Pre_Bool) {
     const snapshot = RT_Dual_Pre_Bool.getSnapshot();
     thisScheduler.add(importConditions(snapshot));
-    thisScheduler.add(Instr_RT_DualRoutineBegin(snapshot));
-    thisScheduler.add(Instr_RT_DualRoutineEachFrame(snapshot));
-    thisScheduler.add(Instr_RT_DualRoutineEnd(snapshot));
+    const Instr_RT_Dual_IterLoopScheduler = new Scheduler(psychoJS);
+    thisScheduler.add(Instr_RT_Dual_IterLoopBegin, Instr_RT_Dual_IterLoopScheduler);
+    thisScheduler.add(Instr_RT_Dual_IterLoopScheduler);
+    thisScheduler.add(Instr_RT_Dual_IterLoopEnd);
     const RT_Dual_BlockLoopScheduler = new Scheduler(psychoJS);
     thisScheduler.add(RT_Dual_BlockLoopBegin, RT_Dual_BlockLoopScheduler);
     thisScheduler.add(RT_Dual_BlockLoopScheduler);``
