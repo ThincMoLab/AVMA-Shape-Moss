@@ -9509,29 +9509,53 @@ function CountReportRoutineBegin(trials) {
     CountPrompt.setText("How many upward chirps did you hear?\n\n" +
     "Type the number and press ENTER to see the correct answer.\n\n"
     );
-
-    if (["right", "Right", "RIGHT"].includes(handedness)){
-      countfeedback = `The correct number of upward chirps was ${Upwardchirp_N}.
-    
-Now, you are going to do this task again (symbol-key mapping + counting).
-
-    
-Place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
-
-
-Whenever you are ready for the next block, press (H, U, I, or L) to continue.`
-    ;
-    } else {
-      if (["left", "Left", "LEFT"].includes(handedness)){
+    if (block_count < rt_dual_block) {
+      if (["right", "Right", "RIGHT"].includes(handedness)){
         countfeedback = `The correct number of upward chirps was ${Upwardchirp_N}.
-    
-Now, you are going to do these two task again.
+      
+  Now, you are going to do this task again (symbol-key mapping + counting).
 
-Place the Index, Middle, Ring, and Pinky fingers of your LEFT hand on (L, I, U, H) respectively.
+      
+  Place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
 
 
-Whenever you are ready for the next block, press (H, U, I, or L) to continue.`
-    ;
+  Whenever you are ready for the next block, press (H, U, I, or L) to continue.`
+      ;
+      } else {
+        if (["left", "Left", "LEFT"].includes(handedness)){
+          countfeedback = `The correct number of upward chirps was ${Upwardchirp_N}.
+      
+  Now, you are going to do these two task again.
+
+  Place the Index, Middle, Ring, and Pinky fingers of your LEFT hand on (L, I, U, H) respectively.
+
+
+  Whenever you are ready for the next block, press (H, U, I, or L) to continue.`
+      ;
+        }
+      }
+    } else if (block_count === rt_dual_block) {
+      if (["right", "Right", "RIGHT"].includes(handedness)){
+        countfeedback = `The correct number of upward chirps was ${Upwardchirp_N}.
+      
+  
+  Before we advance to the next task, place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
+
+
+  Whenever you are ready, press (H, U, I, or L) to continue.`
+      ;
+      } else {
+        if (["left", "Left", "LEFT"].includes(handedness)){
+          countfeedback = `The correct number of upward chirps was ${Upwardchirp_N}.
+      
+  Now, you are going to do these two task again.
+
+  Before we advance to the next task, place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
+
+
+  Whenever you are ready for the next block, press (H, U, I, or L) to continue.`
+      ;
+        }
       }
     }
 
