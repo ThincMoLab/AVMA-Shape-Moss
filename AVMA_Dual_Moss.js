@@ -631,7 +631,7 @@ function experimentInit() {
       // pacing: 0.5 beep interval
       prep_time_range = [0, 1.5];
       num_trials = 4// 60;
-      num_trials_hand = 60;
+      num_trials_hand = 4//60;
       time_limit = 1.8;
       too_late_tol = 0.2;  // time_limit - too_late_tol = 1.6 = beep audio length (0.1s beep lead in + 1.5 s beep length) = accurate response time; 
       timing_tol_early = 0.1;
@@ -9513,24 +9513,25 @@ function CountReportRoutineBegin(trials) {
       if (["right", "Right", "RIGHT"].includes(handedness)){
         countfeedback = `The correct number of upward chirps was ${Upwardchirp_N}.
       
-  Now, you are going to do this task again (symbol-key mapping + counting).
+Now, you are going to do this task again (symbol-key mapping + counting).
+ 
 
-      
-  Place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
+Place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
 
 
-  Whenever you are ready for the next block, press (H, U, I, or L) to continue.`
+Whenever you are ready for the next block, press (H, U, I, or L) to continue.`
       ;
       } else {
         if (["left", "Left", "LEFT"].includes(handedness)){
           countfeedback = `The correct number of upward chirps was ${Upwardchirp_N}.
       
-  Now, you are going to do these two task again.
-
-  Place the Index, Middle, Ring, and Pinky fingers of your LEFT hand on (L, I, U, H) respectively.
+Now, you are going to do these two task again.
 
 
-  Whenever you are ready for the next block, press (H, U, I, or L) to continue.`
+Place the Index, Middle, Ring, and Pinky fingers of your LEFT hand on (L, I, U, H) respectively.
+
+
+Whenever you are ready for the next block, press (H, U, I, or L) to continue.`
       ;
         }
       }
@@ -9538,22 +9539,19 @@ function CountReportRoutineBegin(trials) {
       if (["right", "Right", "RIGHT"].includes(handedness)){
         countfeedback = `The correct number of upward chirps was ${Upwardchirp_N}.
       
-  
-  Before we advance to the next task, place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
+Before we advance to the next task, place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
 
 
-  Whenever you are ready, press (H, U, I, or L) to continue.`
+Whenever you are ready, press (H, U, I, or L) to continue.`
       ;
       } else {
         if (["left", "Left", "LEFT"].includes(handedness)){
           countfeedback = `The correct number of upward chirps was ${Upwardchirp_N}.
       
-  Now, you are going to do these two task again.
-
-  Before we advance to the next task, place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
+Before we advance to the next task, place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
 
 
-  Whenever you are ready for the next block, press (H, U, I, or L) to continue.`
+Whenever you are ready for the next block, press (H, U, I, or L) to continue.`
       ;
         }
       }
