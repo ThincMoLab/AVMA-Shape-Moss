@@ -622,7 +622,7 @@ function experimentInit() {
     } else if (version === "Medium") {
       // pacing: 0.5 beep interval
       prep_time_range = [0, 1.5];
-      num_trials = 60;
+      num_trials = 4// 60;
       num_trials_hand = 60;
       time_limit = 1.8;
       too_late_tol = 0.2;  // time_limit - too_late_tol = 1.6 = beep audio length (0.1s beep lead in + 1.5 s beep length) = accurate response time; 
@@ -1445,7 +1445,31 @@ function experimentInit() {
     color: new util.Color('white'),  opacity: 1,
     depth: 0.0 
   });
+
+  CountPrompt = new visual.TextStim({
+    win: psychoJS.window,
+    name: 'CountPrompt',
+    alignText: 'center',
+    text: 'default text',
+    font: 'Arial',
+    units: undefined, 
+    pos: [0, -0.25], height: 0.03,  wrapWidth: undefined, ori: 0,
+    color: new util.Color('white'),  opacity: 1,
+    depth: 0.0 
+  });
   
+  CountFeedback = new visual.TextStim({
+    win: psychoJS.window,
+    name: 'CountFeedback',
+    alignText: 'center',
+    text: 'default text',
+    font: 'Arial',
+    units: undefined, 
+    pos: [0, 0], height: 0.03,  wrapWidth: undefined, ori: 0,
+    color: new util.Color('white'),  opacity: 1,
+    depth: 0.0 
+  });
+
   Instr_RT_Press = new core.Keyboard({psychoJS: psychoJS, clock: new util.Clock(), waitForStart: true});
   Instr_RT_Dual_Press = new core.Keyboard({psychoJS: psychoJS, clock: new util.Clock(), waitForStart: true});
   
@@ -3171,6 +3195,9 @@ function RT_Dual_BlockLoopBegin(thisScheduler) {
     thisScheduler.add(RT_Dual_IterLoopBegin, RT_Dual_IterLoopScheduler);
     thisScheduler.add(RT_Dual_IterLoopScheduler);
     thisScheduler.add(RT_Dual_IterLoopEnd);
+    thisScheduler.add(CountReportRoutineBegin(snapshot));
+    thisScheduler.add(CountReportRoutineEachFrame(snapshot));
+    thisScheduler.add(CountReportRoutineEnd(snapshot));
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
   }
 
@@ -4336,6 +4363,7 @@ var instr_sound_quit_text;
 var instr_sound_exit_text;
 var instr_sound_select_text;
 var instr_sound_check_text;
+var instr_RT_dual_count_resport
 var instr_sound_check_feedback_P_text;
 var instr_sound_check_feedback_N_text;
 var instr_sound_check_feedback_NO_text;
@@ -4769,6 +4797,41 @@ Press (H, U, I, or L) to accept a 2 second penalty.`
     feedback_late_text = `little late`;
     feedback_good_text = `good timing`;
     
+    if (["right", "Right", "RIGHT"].includes(handedness)){
+      countfeedback = `Great job!
+      
+The upcoming blocks are used to help you get familiar with subsequent tasks.
+    
+Place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
+
+
+Your fingers will rest on these keys for the entirety of the experiment.
+    
+You will see a hand appear on the screen. One of the fingers on the screen will light up and your job is to press the corresponding finger as quickly and as accurately as possible.
+    
+
+
+Press (H, U, I, or L) to continue.`
+    ;
+    } else {
+      if (["left", "Left", "LEFT"].includes(handedness)){
+        countfeedback = `Great job!
+        
+The upcoming blocks are used to help you get familiar with subsequent tasks.
+    
+Place the Index, Middle, Ring, and Pinky fingers of your LEFT hand on (L, I, U, H) respectively.
+
+
+Your fingers will rest on these keys for the entirety of the experiment.
+    
+You will see a hand appear on the screen. One of the fingers on the screen will light up and your job is to press the corresponding finger as quickly and as accurately as possible.
+    
+
+
+Press (H, U, I, or L) to continue.`
+    ;
+      }
+    }
 
     instr_sound_quit_text = `It seems that your computer does not play the sound well. 
     
@@ -6612,7 +6675,7 @@ function Creat_StimSeqRoutineBegin(trials) {
     
 
     // creat dual task sound array of 0 and 1, with 1 representing upward chirp sound
-    Upwardchirp_N = Math.floor(Math.random() * 26) + 25;
+    Upwardchirp_N = Math.floor(Math.random() * 26) + 20;
 
     toneArray = [
         ...Array(Upwardchirp_N).fill(1),
@@ -9404,6 +9467,190 @@ function RT_FeedbackRoutineEnd(trials) {
   };
 }
 
+
+var CountReportComponents;
+var _CountKeys_allKeys;
+var typedCount;
+var reportedCount;
+var countReportSubmitted;
+
+function CountReportRoutineBegin(trials) {
+  return function () {
+    countReportSubmitted = false;
+    //------Prepare to start Routine 'CountReport'-------
+    t = 0;
+    CountReportClock.reset(); // clock
+    frameN = -1;
+    typedCount = "";
+    reportedCount = "";
+    
+    CountPrompt.setText("How many upward chirps did you hear?\n\n" +
+    "Type the number and press ENTER to see the correct answer.\n\n"
+    );
+
+    CountFeedback.setText(countfeedback);
+    CountFeedback.setAutoDraw(false);
+
+    CountKeys.keys = undefined;
+    CountKeys.rt = undefined;
+    _CountKeys_allKeys = [];
+
+    // keep track of which components have finished
+    CountReportComponents = [];
+    CountReportComponents.push(CountPrompt);
+    CountReportComponents.push(CountFeedback);
+    CountReportComponents.push(CountKeys);
+
+    for (const thisComponent of CountReportComponents)
+      if ('status' in thisComponent)
+        thisComponent.status = PsychoJS.Status.NOT_STARTED;
+
+    return Scheduler.Event.NEXT;
+  };
+}
+
+function CountReportRoutineEachFrame(trials) {
+  return function () {
+
+    //------Loop for each frame of Routine 'CountReport'-------
+    let continueRoutine = true;
+    // get current time
+    t = CountReportClock.getTime();
+    frameN = frameN + 1;
+
+    // *CountPrompt* updates
+    if (t >= 0.0 && CountPrompt.status === PsychoJS.Status.NOT_STARTED) {
+      CountPrompt.tStart = t;
+      CountPrompt.frameNStart = frameN;
+      CountPrompt.setAutoDraw(true);
+    }
+
+    // *CountFeedback* updates
+    if (t >= 0.0 && CountFeedback.status === PsychoJS.Status.NOT_STARTED) {
+      CountFeedback.tStart = t;
+      CountFeedback.frameNStart = frameN;
+    }
+
+    // *CountKeys* updates
+    if (t >= 0.0 && CountKeys.status === PsychoJS.Status.NOT_STARTED) {
+      CountKeys.tStart = t;
+      CountKeys.frameNStart = frameN;
+
+      psychoJS.window.callOnFlip(function() {CountKeys.clock.reset();});
+      psychoJS.window.callOnFlip(function() {CountKeys.start();});
+      psychoJS.window.callOnFlip(function() {CountKeys.clearEvents();});
+    }
+
+    if (CountKeys.status === PsychoJS.Status.STARTED) {
+
+      // ==================================================
+      // PHASE 1: Enter count
+      // ==================================================
+      if (!countReportSubmitted) {
+
+        let theseKeys = CountKeys.getKeys({
+          keyList: [
+            '0','1','2','3','4',
+            '5','6','7','8','9',
+            'num_0','num_1','num_2','num_3','num_4',
+            'num_5','num_6','num_7','num_8','num_9',
+            'backspace',
+            'return'
+          ],
+          waitRelease: false
+        });
+
+        for (const key of theseKeys) {
+          if (key.name === 'backspace') {
+            typedCount = typedCount.slice(0, -1);
+          } else if (key.name === 'return') {
+            if (typedCount.length > 0) {
+              // save participant report
+              reportedCount = Number(typedCount);
+              // move to feedback screen
+              countReportSubmitted = true;
+              // hide prompt
+              CountFeedback.setAutoDraw(true);
+            }
+
+          } else {
+            let digit = key.name.replace('num_', '');
+            typedCount += digit;
+          }
+          // update screen with entered number
+          CountPrompt.setText(
+            "How many upward chirps did you hear?\n\n" +
+            "Type the number and press ENTER to see the correct answer.\n\n" +
+            typedCount
+          );
+        }
+
+      }
+
+      // ==================================================
+      // PHASE 2: Feedback screen
+      // ==================================================
+      else {
+        let continueKeys = CountKeys.getKeys({keyList: ['h','u','i','l'],waitRelease: false});
+
+        if (continueKeys.length > 0) {
+          continueRoutine = false;
+        }
+      }
+    }
+
+    // check for quit (Esc)
+    if (psychoJS.experiment.experimentEnded ||
+        psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
+
+      return quitPsychoJS(
+        'The [Escape] key was pressed. Goodbye!',
+        false
+      );
+    }
+
+    // check if Routine should terminate
+    if (!continueRoutine) {
+      return Scheduler.Event.NEXT;
+    }
+
+    continueRoutine = false;
+
+    for (const thisComponent of CountReportComponents) 
+      if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
+        continueRoutine = true;
+        break;
+      }
+
+    // refresh screen if continuing
+    if (continueRoutine) {
+      return Scheduler.Event.FLIP_REPEAT;
+    } else {
+      return Scheduler.Event.NEXT;
+    }
+  };
+}
+
+
+function CountReportRoutineEnd(trials) {
+  return function () {
+    //------Ending Routine 'CountReport'-------
+    for (const thisComponent of CountReportComponents) {
+      if (typeof thisComponent.setAutoDraw === 'function') {
+        thisComponent.setAutoDraw(false);
+      }
+    }
+    CountKeys.stop();
+
+    // save participant report
+    psychoJS.experiment.addData("reported_count",reportedCount);
+    // save actual number presented
+    psychoJS.experiment.addData("actual_count", Upwardchirp_N);
+
+    routineTimer.reset();
+    return Scheduler.Event.NEXT;
+  };
+}
 
 var Criterion_DetComponents;
 function Criterion_DetRoutineBegin(trials) {
