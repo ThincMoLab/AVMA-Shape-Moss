@@ -8960,7 +8960,7 @@ function Pre_TrialRoutineEnd(trials) {
     psychoJS.experiment.addData("block_type", block_type);
     psychoJS.experiment.addData("remap", remap);
     psychoJS.experiment.addData("dual", dual);
-    psychoJS.experiment.addData("dual_sound", dual_sound);
+    psychoJS.experiment.addData("dual_sound_upward", dual_sound);
     psychoJS.experiment.addData("repeat_count", repeat_count);
     psychoJS.experiment.addData("trial_Count", trial_count);
     psychoJS.experiment.addData("grp_stop", grp_stop);
@@ -9510,7 +9510,7 @@ function CountReportRoutineBegin(trials) {
     if (["right", "Right", "RIGHT"].includes(handedness)){
       countfeedback = `The correct number of upward chirps was ${Upwardchirp_N}.
     
-Now, you are going to do these two task again.
+Now, you are going to do this task again (symbol-key mapping + counting).
 
     
 Place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
@@ -9686,11 +9686,12 @@ function CountReportRoutineEnd(trials) {
     }
     CountKeys.stop();
 
+    console.log(`Reported count: ${reportedCount}`);
     // save participant report
     psychoJS.experiment.addData("reported_count",reportedCount);
     // save actual number presented
     psychoJS.experiment.addData("actual_count", Upwardchirp_N);
-
+    psychoJS.experiment.addData("test", 10000);
     routineTimer.reset();
     return Scheduler.Event.NEXT;
   };
