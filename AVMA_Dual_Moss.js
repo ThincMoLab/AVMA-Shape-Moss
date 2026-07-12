@@ -3167,7 +3167,7 @@ function RT_Dual_BlockLoopBegin(thisScheduler) {
     //thisScheduler.add(CountDownRoutineBegin(snapshot));
     //thisScheduler.add(CountDownRoutineEachFrame(snapshot));
     //thisScheduler.add(CountDownRoutineEnd(snapshot));
-    const RT_IterLoopScheduler = new Scheduler(psychoJS);
+    const RT_Dual_IterLoopScheduler = new Scheduler(psychoJS);
     thisScheduler.add(RT_Dual_IterLoopBegin, RT_Dual_IterLoopScheduler);
     thisScheduler.add(RT_Dual_IterLoopScheduler);
     thisScheduler.add(RT_Dual_IterLoopEnd);
@@ -3203,10 +3203,10 @@ function RT_New_BlockLoopBegin(thisScheduler) {
     //thisScheduler.add(CountDownRoutineBegin(snapshot));
     //thisScheduler.add(CountDownRoutineEachFrame(snapshot));
     //thisScheduler.add(CountDownRoutineEnd(snapshot));
-    const RT_Dual_IterLoopScheduler = new Scheduler(psychoJS);
-    thisScheduler.add(RT_Dual_IterLoopBegin, RT_Dual_IterLoopScheduler);
-    thisScheduler.add(RT_Dual_IterLoopScheduler);
-    thisScheduler.add(RT_Dual_IterLoopEnd);
+    const RT_IterLoopScheduler = new Scheduler(psychoJS);
+    thisScheduler.add(RT_IterLoopBegin, RT_IterLoopScheduler);
+    thisScheduler.add(RT_IterLoopScheduler);
+    thisScheduler.add(RT_IterLoopEnd);
     thisScheduler.add(endLoopIteration(thisScheduler, snapshot));
   }
 
@@ -8764,6 +8764,7 @@ var symb_item;
 var symb_g_item;
 var symb_r_item;
 var interval_ind;
+var dual_sound;
 var Pre_TrialComponents;
 function Pre_TrialRoutineBegin(trials) {
   return function () {
@@ -8782,6 +8783,7 @@ function Pre_TrialRoutineBegin(trials) {
     symb_g_item = seq_symb_g[trial_count];
     symb_r_item = seq_symb_r[trial_count];
     keynum_item = seq_keynum[trial_count];
+    dual_sound = toneArray[trial_count];
     if ((block_type === "TR")) {
 
         interval_ind = prep_time_ind[stimnum_item][trial_count_item[stimnum_item]];
@@ -8876,6 +8878,7 @@ function Pre_TrialRoutineEnd(trials) {
     psychoJS.experiment.addData("block_type", block_type);
     psychoJS.experiment.addData("remap", remap);
     psychoJS.experiment.addData("dual", dual);
+    psychoJS.experiment.addData("dual_sound", dual_sound);
     psychoJS.experiment.addData("repeat_count", repeat_count);
     psychoJS.experiment.addData("trial_Count", trial_count);
     psychoJS.experiment.addData("grp_stop", grp_stop);
@@ -9064,6 +9067,216 @@ function RT_Enter_TrialRoutineEnd(trials) {
   };
 }
 
+var _RT_Press_allKeys;
+var RT_Enter_TrialComponents;
+var dual_sound_play;
+function RT_Dual_Enter_TrialRoutineBegin(trials) {
+  return function () {
+    //------Prepare to start Routine 'RT_Enter_Trial'-------
+    t = 0;
+    RT_Enter_TrialClock.reset(); // clock
+    frameN = -1;
+    // update component parameters for each repeat
+    RT_Rec_Frame.setOpacity(rec_frame_opacity);
+    RT_Rec_Frame.setLineColor(new util.Color(rec_frame_color));
+    RT_Rec_Frame.setLineWidth(rec_wd);
+    RT_Stim_Image.setImage(symb_item);
+
+    Upwardchirp = new sound.Sound({
+    win: psychoJS.window,
+    value: upwardchirp,
+    secs: (- 1),
+    });
+
+    Upwardchirp.setVolume(1);
+  
+    Downwardchirp = new sound.Sound({
+    win: psychoJS.window,
+    value: downwardchirp,
+    secs: (- 1),
+    });
+    Downwardchirp.setVolume(1);     
+
+    if ((dual_sound === 1)) {
+        dual_sound_play = Upwardchirp;
+    } else {
+        dual_sound_play = Downwardchirp;
+    }
+
+
+    RT_Press.keys = undefined;
+    RT_Press.rt = undefined;
+    _RT_Press_allKeys = [];
+    // keep track of which components have finished
+    RT_Enter_TrialComponents = [];
+    RT_Enter_TrialComponents.push(RT_Rec_Frame);
+    RT_Enter_TrialComponents.push(RT_Stim_Image);
+    RT_Enter_TrialComponents.push(RT_Press);
+    RT_Enter_TrialComponents.push(dual_sound_play);
+    RT_Enter_TrialComponents.push(Downwardchirp);
+    
+    for (const thisComponent of RT_Enter_TrialComponents)
+      if ('status' in thisComponent)
+        thisComponent.status = PsychoJS.Status.NOT_STARTED;
+    
+    return Scheduler.Event.NEXT;
+  };
+}
+
+
+function RT_Dual_Enter_TrialRoutineEachFrame(trials) {
+  return function () {
+    //------Loop for each frame of Routine 'RT_Enter_Trial'-------
+    let continueRoutine = true; // until we're told otherwise
+    // get current time
+    t = RT_Enter_TrialClock.getTime();
+    frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
+    // update/draw components on each frame
+    
+    // *RT_Rec_Frame* updates
+    if (t >= 0.0 && RT_Rec_Frame.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      RT_Rec_Frame.tStart = t;  // (not accounting for frame time here)
+      RT_Rec_Frame.frameNStart = frameN;  // exact frame index
+      
+      RT_Rec_Frame.setAutoDraw(true);
+    }
+
+    
+    // *RT_Stim_Image* updates
+    if (t >= 0.0 && RT_Stim_Image.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      RT_Stim_Image.tStart = t;  // (not accounting for frame time here)
+      RT_Stim_Image.frameNStart = frameN;  // exact frame index
+      
+      RT_Stim_Image.setAutoDraw(true);
+    }
+
+    if (t >= 0.0 && dual_sound_play.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      dual_sound_play.tStart = t;  // (not accounting for frame time here)
+      dual_sound_play.frameNStart = frameN;  // exact frame index
+      
+      psychoJS.window.callOnFlip(function(){ dual_sound_play.play(); });  // screen flip
+      dual_sound_play.status = PsychoJS.Status.STARTED;
+    }
+    
+    frameRemains = time_limit  - psychoJS.window.monitorFramePeriod * 0.75;  // most of one frame period left
+    if (t >= frameRemains && TR_Beep.status === PsychoJS.Status.STARTED) {
+      dual_sound_play.stop();  // stop the sound (if longer than duration)
+      dual_sound_play.status = PsychoJS.Status.FINISHED;
+    }
+
+    // *RT_Press* updates
+    if (t >= 0.0 && RT_Press.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      RT_Press.tStart = t;  // (not accounting for frame time here)
+      RT_Press.frameNStart = frameN;  // exact frame index
+      
+      // keyboard checking is just starting
+      psychoJS.window.callOnFlip(function() { RT_Press.clock.reset(); });  // t=0 on next screen flip
+      psychoJS.window.callOnFlip(function() { RT_Press.start(); }); // start on screen flip
+      psychoJS.window.callOnFlip(function() { RT_Press.clearEvents(); });
+    }
+
+    if (RT_Press.status === PsychoJS.Status.STARTED) {
+      let theseKeys = RT_Press.getKeys({keyList: ['h', 'u', 'i', 'l'], waitRelease: false});
+      _RT_Press_allKeys = _RT_Press_allKeys.concat(theseKeys);
+      if (_RT_Press_allKeys.length > 0) {
+        RT_Press.keys = _RT_Press_allKeys[0].name;  // just the first key pressed
+        RT_Press.rt = _RT_Press_allKeys[0].rt;
+        // was this correct?
+        if (RT_Press.keys == key_item) {
+            RT_Press.corr = 1;
+        } else {
+            RT_Press.corr = 0;
+        }
+        // a response ends the routine
+        continueRoutine = false;
+      }
+    }
+    
+    // check for quit (typically the Esc key)
+    if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
+      return quitPsychoJS('The [Escape] key was pressed. Goodbye!', false);
+    }
+    
+    // check if the Routine should terminate
+    if (!continueRoutine) {  // a component has requested a forced-end of Routine
+      return Scheduler.Event.NEXT;
+    }
+    
+    continueRoutine = false;  // reverts to True if at least one component still running
+    for (const thisComponent of RT_Enter_TrialComponents)
+      if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
+        continueRoutine = true;
+        break;
+      }
+    
+    // refresh the screen if continuing
+    if (continueRoutine) {
+      return Scheduler.Event.FLIP_REPEAT;
+    } else {
+      return Scheduler.Event.NEXT;
+    }
+  };
+}
+
+
+var feedback_image;
+function RT_Dual_Enter_TrialRoutineEnd(trials) {
+  return function () {
+    //------Ending Routine 'RT_Enter_Trial'-------
+    for (const thisComponent of RT_Enter_TrialComponents) {
+      if (typeof thisComponent.setAutoDraw === 'function') {
+        thisComponent.setAutoDraw(false);
+      }
+    }
+    sound_vol = 0;
+    if (RT_Press.corr) {
+        corr = 1;
+        feedback_image = symb_g_item;
+        feedback_dur = 0.3;
+        sound_vol = 1;
+    } else {
+        corr = 0;
+        feedback_image = symb_r_item;
+        feedback_dur = 1;
+    }
+    actual_press = RT_Press.keys;
+    rt = RT_Press.rt;
+    actual_choice = key_list.indexOf(actual_press);
+    psychoJS.experiment.addData("actual_press", actual_press);
+    psychoJS.experiment.addData("rt", rt);
+    psychoJS.experiment.addData("actual_choice", actual_choice);
+    psychoJS.experiment.addData("correct", corr);
+    if ((block_type === "RT")) {
+        trial_count = (trial_count + 1);
+    }
+    
+    // was no response the correct answer?!
+    if (RT_Press.keys === undefined) {
+      if (['None','none',undefined].includes(key_item)) {
+         RT_Press.corr = 1;  // correct non-response
+      } else {
+         RT_Press.corr = 0;  // failed to respond (incorrectly)
+      }
+    }
+    // store data for thisExp (ExperimentHandler)
+    psychoJS.experiment.addData('RT_Press.keys', RT_Press.keys);
+    psychoJS.experiment.addData('RT_Press.corr', RT_Press.corr);
+    if (typeof RT_Press.keys !== 'undefined') {  // we had a response
+        psychoJS.experiment.addData('RT_Press.rt', RT_Press.rt);
+        routineTimer.reset();
+        }
+    
+    RT_Press.stop();
+    // the Routine "RT_Enter_Trial" was not non-slip safe, so reset the non-slip timer
+    routineTimer.reset();
+    
+    return Scheduler.Event.NEXT;
+  };
+}
 
 var RT_FeedbackComponents;
 function RT_FeedbackRoutineBegin(trials) {
