@@ -1449,6 +1449,7 @@ function experimentInit() {
     depth: 0.0 
   });
 
+  CountReportClock = new util.Clock();
   CountPrompt = new visual.TextStim({
     win: psychoJS.window,
     name: 'CountPrompt',
