@@ -9506,7 +9506,7 @@ function CountReportRoutineBegin(trials) {
     );
 
     if (["right", "Right", "RIGHT"].includes(handedness)){
-      countfeedback = `The correct number of upward chirps was ${upwardchirp_N}.
+      countfeedback = `The correct number of upward chirps was ${Upwardchirp_N}.
     
 Now, you are going to do these two task again.
 
