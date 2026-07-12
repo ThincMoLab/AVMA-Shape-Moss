@@ -426,6 +426,8 @@ var TR_Press_Stop;
 var Instr_End_ExpClock;
 var Instr_End_Exp_Text;
 var Instr_End_Exp_Key;
+var CountPrompt;
+var CountFeedback;
 var Text_CountDown;
 var Number_CountDown;
 var penalty_countdown;
