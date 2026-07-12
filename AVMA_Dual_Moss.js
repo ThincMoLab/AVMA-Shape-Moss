@@ -10251,7 +10251,7 @@ function Instr_RTRoutineEnd(trials) {
 }
 
 
-var Instr_RT_Components;
+var Instr_RT_DualComponents;
 var _Instr_RT_Dual_Press_allKeys;
 function Instr_RT_DualRoutineBegin(trials) {
   return function () {
@@ -10305,13 +10305,13 @@ function Instr_RT_DualRoutineBegin(trials) {
 
 
     // keep track of which components have finished
-    Instr_RTComponents = [];
-    Instr_RTComponents.push(Instr_RT_Text);
-    Instr_RTComponents.push(Instr_RT_Press);
-    Instr_RTComponents.push(Instr_RT_Dual_Press);
-    Instr_RTComponents.push(Upwardchirp);
-    Instr_RTComponents.push(Downwardchirp);
-    for (const thisComponent of Instr_RTComponents)
+    Instr_RT_DualComponents = [];
+    Instr_RT_DualComponents.push(Instr_RT_Text);
+    Instr_RT_DualComponents.push(Instr_RT_Press);
+    Instr_RT_DualComponents.push(Instr_RT_Dual_Press);
+    Instr_RT_DualComponents.push(Upwardchirp);
+    Instr_RT_DualComponents.push(Downwardchirp);
+    for (const thisComponent of Instr_RT_DualComponents)
       if ('status' in thisComponent)
         thisComponent.status = PsychoJS.Status.NOT_STARTED;
     
@@ -10432,7 +10432,7 @@ function Instr_RT_DualRoutineEachFrame(trials) {
     }
     
     continueRoutine = false;  // reverts to True if at least one component still running
-    for (const thisComponent of Instr_RTComponents)
+    for (const thisComponent of Instr_RT_DualComponents)
       if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
         continueRoutine = true;
         break;
