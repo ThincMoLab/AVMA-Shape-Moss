@@ -9475,7 +9475,7 @@ var _CountKeys_allKeys;
 var typedCount;
 var reportedCount;
 var countReportSubmitted;
-
+var countfeedback;
 function CountReportRoutineBegin(trials) {
   return function () {
     countReportSubmitted = false;
@@ -9489,6 +9489,31 @@ function CountReportRoutineBegin(trials) {
     CountPrompt.setText("How many upward chirps did you hear?\n\n" +
     "Type the number and press ENTER to see the correct answer.\n\n"
     );
+
+    if (["right", "Right", "RIGHT"].includes(handedness)){
+      countfeedback = `The correct number of upward chirps was ${upwardchirp_N}.
+    
+Now, you are going to do these two task again.
+
+    
+Place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
+
+
+Whenever you are ready for the next block, press (H, U, I, or L) to continue.`
+    ;
+    } else {
+      if (["left", "Left", "LEFT"].includes(handedness)){
+        countfeedback = `The correct number of upward chirps was ${Upwardchirp_N}.
+    
+Now, you are going to do these two task again.
+
+Place the Index, Middle, Ring, and Pinky fingers of your LEFT hand on (L, I, U, H) respectively.
+
+
+Whenever you are ready for the next block, press (H, U, I, or L) to continue.`
+    ;
+      }
+    }
 
     CountFeedback.setText(countfeedback);
     CountFeedback.setAutoDraw(false);
