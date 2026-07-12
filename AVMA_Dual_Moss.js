@@ -1487,6 +1487,7 @@ function experimentInit() {
     depth: 0.0 
   });
 
+  CountKeys = new core.Keyboard({psychoJS: psychoJS, clock: new util.Clock(), waitForStart: true});
   Instr_RT_Press = new core.Keyboard({psychoJS: psychoJS, clock: new util.Clock(), waitForStart: true});
   Instr_RT_Dual_Press = new core.Keyboard({psychoJS: psychoJS, clock: new util.Clock(), waitForStart: true});
   
