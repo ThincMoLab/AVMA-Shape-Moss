@@ -6690,8 +6690,8 @@ function Creat_StimSeqRoutineBegin(trials) {
     
 
     // creat dual task sound array of 0 and 1, with 1 representing upward chirp sound
-    Upwardchirp_N = Math.floor(Math.random() * 26) + 20;
-
+   // Upwardchirp_N = Math.floor(Math.random() * 26) + 20;
+    Upwardchirp_N = Math.floor(Math.random() * 1) + 4;
     toneArray = [
         ...Array(Upwardchirp_N).fill(1),
         ...Array(num_trials - Upwardchirp_N).fill(0)
