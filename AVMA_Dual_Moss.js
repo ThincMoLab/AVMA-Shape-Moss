@@ -8160,7 +8160,7 @@ function TR_Feedback_HandRoutineEachFrame(trials) {
     // update/draw components on each frame
     
     
-    console.log(tr_press_toolate)
+    
     if (tr_press_toolate === 1) {
       if (t >= 0 && TR_Feedback_Buzz_Hand.status === PsychoJS.Status.NOT_STARTED) {
         // keep track of start time/frame for later
@@ -9686,12 +9686,11 @@ function CountReportRoutineEnd(trials) {
     }
     CountKeys.stop();
 
-    console.log(`Reported count: ${reportedCount}`);
     // save participant report
     psychoJS.experiment.addData("reported_count",reportedCount);
     // save actual number presented
     psychoJS.experiment.addData("actual_count", Upwardchirp_N);
-    psychoJS.experiment.addData("test", 10000);
+
     routineTimer.reset();
     return Scheduler.Event.NEXT;
   };
