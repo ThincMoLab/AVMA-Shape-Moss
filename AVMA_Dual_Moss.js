@@ -249,7 +249,8 @@ var rt_hand_yes;
 var cr_old_yes;
 var cr_new_yes;
 var rt_yes;
-var rt_dual_yes;
+var rt_dual_pre_yes;
+var rt_dual_post_yes;
 var rt_new_yes;
 var tr_new_yes;
 var refresh_exp;
@@ -489,7 +490,8 @@ function experimentInit() {
   cr_old_yes = 0;
   cr_new_yes = 0;
   rt_yes = 0;
-  rt_dual_yes = 0;
+  rt_dual_pre_yes = 0;
+  rt_dual_post_yes = 0;
   rt_new_yes = 0;
   tr_new_yes = 0;
   refresh_exp = 0;
@@ -522,7 +524,7 @@ function experimentInit() {
         tr_block_hand = 4;
         rt_hand_yes = 1;
         cr_old_yes = 1;
-        rt_dual_yes = 1;
+        rt_dual_pre_yes = 1;
         rt_dual_block = 2;
         rt_yes = 1;
         rt_block = 7;
@@ -538,7 +540,7 @@ function experimentInit() {
         tr_block_hand = 4;
         rt_yes = 1;
         rt_block = 1;
-        rt_dual_yes = 1;
+        rt_dual_post_yes = 1;
         rt_dual_block = 2;
         cr_new_yes = 1;
         rt_new_yes = 1;
@@ -580,7 +582,8 @@ function experimentInit() {
         cr_old_yes = 0;
         rt_yes = 0;
         rt_block = 1;
-        rt_dual_yes = 1;
+        rt_dual_pre_yes = 1;
+        rt_dual_post_yes = 1;
         rt_dual_block = 2;
         cr_new_yes = 1;
         rt_new_yes = 1;
@@ -3027,7 +3030,7 @@ function RT_Dual_Pre_BoolLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   RT_Dual_Pre_Bool = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: rt_dual_yes, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: rt_dual_pre_yes, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'RT_Dual_Pre_Bool'
@@ -3059,7 +3062,7 @@ function RT_Dual_Post_BoolLoopBegin(thisScheduler) {
   // set up handler to look after randomisation of conditions etc
   RT_Dual_Post_Bool = new TrialHandler({
     psychoJS: psychoJS,
-    nReps: rt_dual_yes, method: TrialHandler.Method.SEQUENTIAL,
+    nReps: rt_dual_post_yes, method: TrialHandler.Method.SEQUENTIAL,
     extraInfo: expInfo, originPath: undefined,
     trialList: undefined,
     seed: undefined, name: 'RT_Dual_Post_Bool'
