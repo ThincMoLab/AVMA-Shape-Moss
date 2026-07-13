@@ -520,14 +520,14 @@ function experimentInit() {
       b = 1000
       if ((session === 1)) {
         instr_exp = 1;
-        sound_check_yes = 0;
-        tr_hand_yes = 0;
+        sound_check_yes = 1;
+        tr_hand_yes = 1;
         tr_block_hand = 8;
-        rt_hand_yes = 0;
-        cr_old_yes = 0;
+        rt_hand_yes = 1;
+        cr_old_yes = 1;
         rt_dual_pre_yes = 1;
         rt_dual_block = 2;
-        rt_yes = 0;
+        rt_yes = 1;
         rt_block = 7;
       } else if (session === 2) {
         instr_exp = 1;
@@ -537,7 +537,7 @@ function experimentInit() {
       } else if (session === 3) {
         instr_exp = 1;
         sound_check_yes = 1;    
-        tr_hand_yes = 0;
+        tr_hand_yes = 1;
         tr_block_hand = 8;
         rt_yes = 1;
         rt_block = 1;
@@ -6665,7 +6665,7 @@ function Creat_StimSeqRoutineBegin(trials) {
     
 
     // creat dual task sound array of 0 and 1, with 1 representing upward chirp sound
-   Upwardchirp_N = Math.floor(Math.random() * num_trials/2) + num_trials*1/3; // for 60 trials, 30-50 trials will play upward chirp sound
+   Upwardchirp_N = Math.floor(Math.random() * num_trials/3 + 1) + num_trials*1/2; // for 60 trials, 30-50 trials will play upward chirp sound
    // Upwardchirp_N = Math.floor(Math.random() * 1) + 4;
     toneArray = [
         ...Array(Upwardchirp_N).fill(1),
