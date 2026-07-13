@@ -524,7 +524,7 @@ function experimentInit() {
         tr_hand_yes = 0;
         tr_block_hand = 8;
         rt_hand_yes = 0;
-        cr_old_yes = 1;
+        cr_old_yes = 0;
         rt_dual_pre_yes = 1;
         rt_dual_block = 2;
         rt_yes = 0;
@@ -631,8 +631,8 @@ function experimentInit() {
     } else if (version === "Medium") {
       // pacing: 0.5 beep interval
       prep_time_range = [0, 1.5];
-      num_trials = 4// 60;
-      num_trials_hand = 4//60;
+      num_trials = 60;
+      num_trials_hand = 60;
       time_limit = 1.8;
       too_late_tol = 0.2;  // time_limit - too_late_tol = 1.6 = beep audio length (0.1s beep lead in + 1.5 s beep length) = accurate response time; 
       timing_tol_early = 0.1;
@@ -6665,8 +6665,8 @@ function Creat_StimSeqRoutineBegin(trials) {
     
 
     // creat dual task sound array of 0 and 1, with 1 representing upward chirp sound
-   // Upwardchirp_N = Math.floor(Math.random() * 26) + 20;
-    Upwardchirp_N = Math.floor(Math.random() * 1) + 4;
+   Upwardchirp_N = Math.floor(Math.random() * num_trials/2) + num_trials*1/3; // for 60 trials, 30-50 trials will play upward chirp sound
+   // Upwardchirp_N = Math.floor(Math.random() * 1) + 4;
     toneArray = [
         ...Array(Upwardchirp_N).fill(1),
         ...Array(num_trials - Upwardchirp_N).fill(0)
@@ -9516,7 +9516,7 @@ Whenever you are ready, press (H, U, I, or L) to continue.`
         if (["left", "Left", "LEFT"].includes(handedness)){
           countfeedback = `The correct number of upward chirps was ${Upwardchirp_N}.
       
-Before we advance to the next task, place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
+Before we advance to the next task, place the Index, Middle, Ring, and Pinky fingers of your LEFT hand on (L, I, U, H) respectively.
 
 
 Whenever you are ready for the next block, press (H, U, I, or L) to continue.`
