@@ -253,6 +253,7 @@ var rt_dual_pre_yes;
 var rt_dual_post_yes;
 var rt_new_yes;
 var tr_new_yes;
+var dual_pre = 1;
 var refresh_exp;
 
 var sound_check_yes;
@@ -519,14 +520,14 @@ function experimentInit() {
       b = 1000
       if ((session === 1)) {
         instr_exp = 1;
-        sound_check_yes = 1;
-        tr_hand_yes = 1;
+        sound_check_yes = 0;
+        tr_hand_yes = 0;
         tr_block_hand = 8;
-        rt_hand_yes = 1;
+        rt_hand_yes = 0;
         cr_old_yes = 1;
         rt_dual_pre_yes = 1;
         rt_dual_block = 2;
-        rt_yes = 1;
+        rt_yes = 0;
         rt_block = 7;
       } else if (session === 2) {
         instr_exp = 1;
@@ -536,7 +537,7 @@ function experimentInit() {
       } else if (session === 3) {
         instr_exp = 1;
         sound_check_yes = 1;    
-        tr_hand_yes = 1;
+        tr_hand_yes = 0;
         tr_block_hand = 8;
         rt_yes = 1;
         rt_block = 1;
@@ -3056,9 +3057,11 @@ function RT_Dual_Pre_BoolLoopBegin(thisScheduler) {
   return Scheduler.Event.NEXT;
 }
 
+
 var RT_Dual_Post_Bool
 function RT_Dual_Post_BoolLoopBegin(thisScheduler) {
   instr_rt_dual_text = instr_rt_dual_post_text
+  dual_pre = 0;
   // set up handler to look after randomisation of conditions etc
   RT_Dual_Post_Bool = new TrialHandler({
     psychoJS: psychoJS,
@@ -4559,7 +4562,7 @@ Sometimes, the finger will light up at the very last second. You will not have e
 
 if you respond too late or too early, you will hear a buzzer tone. So always press one of your fingers ON the fourth beep.
 
-There will be at least 4 blocks, depending on how well you time your response ON the fourth beep.
+There will be at least 2 blocks, depending on how well you time your response ON the fourth beep.
 
 
 Press (H, U, I, or L) to continue.`
@@ -4576,7 +4579,7 @@ Sometimes, the finger will light up at the very last second. You will not have e
 
 if you respond too late or too early, you will hear a buzzer tone. So always press one of your fingers ON the fourth beep.
 
-There will be at least 2 blocks, depending on how well you time your response ON the fourth beep.
+There will be at least 4 blocks, depending on how well you time your response ON the fourth beep.
 
 
 Press (H, U, I, or L) to continue.`
@@ -4660,7 +4663,7 @@ Press ( W ) to hear the downward chirp sound.
 Whenever you are ready, press (H, U, I, or L) to start.`
     ;
 
-    instr_rt_dual_post_text = `Good job so far. Now you are going to perform the symbol-key map task and the tone counting task concurrently. 
+    instr_rt_dual_post_text = `Good job so far. Now you are going to perform the symbol-key map task and the tone counting task at the same time again. 
         
 Your job is to press the corresponding key as quickly and as accurately as possible.
 
@@ -4819,41 +4822,6 @@ Press (H, U, I, or L) to accept a 2 second penalty.`
     feedback_late_text = `little late`;
     feedback_good_text = `good timing`;
     
-    if (["right", "Right", "RIGHT"].includes(handedness)){
-      countfeedback = `Great job!
-      
-The upcoming blocks are used to help you get familiar with subsequent tasks.
-    
-Place the Index, Middle, Ring, and Pinky fingers of your RIGHT hand on (H, U, I, L) respectively.
-
-
-Your fingers will rest on these keys for the entirety of the experiment.
-    
-You will see a hand appear on the screen. One of the fingers on the screen will light up and your job is to press the corresponding finger as quickly and as accurately as possible.
-    
-
-
-Press (H, U, I, or L) to continue.`
-    ;
-    } else {
-      if (["left", "Left", "LEFT"].includes(handedness)){
-        countfeedback = `Great job!
-        
-The upcoming blocks are used to help you get familiar with subsequent tasks.
-    
-Place the Index, Middle, Ring, and Pinky fingers of your LEFT hand on (L, I, U, H) respectively.
-
-
-Your fingers will rest on these keys for the entirety of the experiment.
-    
-You will see a hand appear on the screen. One of the fingers on the screen will light up and your job is to press the corresponding finger as quickly and as accurately as possible.
-    
-
-
-Press (H, U, I, or L) to continue.`
-    ;
-      }
-    }
 
     instr_sound_quit_text = `It seems that your computer does not play the sound well. 
     
@@ -8635,15 +8603,15 @@ function TR_Hand_Accuracy_BoolRoutineBegin(trials) {
     frameN = -1;
     // update component parameters for each repeat
     
-    if (training_vol === 'Minimum') {
+    if (session === 1 || session === 5) {
       if ((block_count > 3)) {
         tr_timing_perc = (tr_timing_good / num_trials_hand);
         if ((tr_timing_perc > 0.8)) {
             trials.finished = true;
         }
       }
-    } else if (training_vol === 'Extensive') {
-      if ((block_count > 3)) {
+    } else if (session !== 1 && session !== 5) {
+      if ((block_count > 1)) {
         tr_timing_perc = (tr_timing_good / num_trials_hand);
         if ((tr_timing_perc > 0.8)) {
             trials.finished = true;
