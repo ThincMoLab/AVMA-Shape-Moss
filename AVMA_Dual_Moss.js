@@ -521,7 +521,7 @@ function experimentInit() {
         instr_exp = 1;
         sound_check_yes = 1;
         tr_hand_yes = 1;
-        tr_block_hand = 4;
+        tr_block_hand = 8;
         rt_hand_yes = 1;
         cr_old_yes = 1;
         rt_dual_pre_yes = 1;
@@ -537,7 +537,7 @@ function experimentInit() {
         instr_exp = 1;
         sound_check_yes = 1;    
         tr_hand_yes = 1;
-        tr_block_hand = 4;
+        tr_block_hand = 8;
         rt_yes = 1;
         rt_block = 1;
         rt_dual_post_yes = 1;
@@ -563,7 +563,7 @@ function experimentInit() {
         instr_exp = 1;
         sound_check_yes = 1;
         tr_hand_yes = 1;
-        tr_block_hand = 4;
+        tr_block_hand = 8;
         cr_new_yes = 1;
         rt_new_yes = 1;
         rt_new_block = 1;
@@ -575,12 +575,12 @@ function experimentInit() {
       if ((session === 1)) {
         c = 1000
         instr_exp = 1;
-        sound_check_yes = 0;
-        tr_hand_yes = 0;
+        sound_check_yes = 1;
+        tr_hand_yes = 1;
         tr_block_hand = 8;
-        rt_hand_yes = 0;
-        cr_old_yes = 0;
-        rt_yes = 0;
+        rt_hand_yes = 1;
+        cr_old_yes = 1;
+        rt_yes = 1;
         rt_block = 1;
         rt_dual_pre_yes = 1;
         rt_dual_post_yes = 1;
@@ -605,7 +605,7 @@ function experimentInit() {
         instr_exp = 1;
         sound_check_yes = 1;
         tr_hand_yes = 1;
-        tr_block_hand = 4;
+        tr_block_hand = 8;
         cr_new_yes = 1;
         rt_new_yes = 1;
         rt_new_block = 1;
@@ -4510,7 +4510,7 @@ Sometimes, the finger will light up at the very last second. You will not have e
 
 if you respond too late or too early, you will hear a buzzer tone. So always press one of your fingers ON the fourth beep.
 
-There will be at least 2 blocks, depending on how well you time your response ON the fourth beep.
+There will be at least 4 blocks, depending on how well you time your response ON the fourth beep.
 
 
 Press (H, U, I, or L) to continue.`
@@ -4526,7 +4526,7 @@ Sometimes, the finger will light up at the very last second. You will not have e
 
 if you respond too late or too early, you will hear a buzzer tone. So always press one of your fingers ON the fourth beep.
 
-There will be at least 2 blocks, depending on how well you time your response ON the fourth beep.
+There will be at least 4 blocks, depending on how well you time your response ON the fourth beep.
 
 
 Press (H, U, I, or L) to continue.`
@@ -4545,7 +4545,7 @@ Sometimes, the finger will light up at the very last second. You will not have e
 
 if you respond too late or too early, you will hear a buzzer tone. So always press one of your fingers ON the fourth beep.
 
-There will be at least 2 blocks, depending on how well you time your response ON the fourth beep.
+There will be at least 4 blocks, depending on how well you time your response ON the fourth beep.
 
 
 Press (H, U, I, or L) to continue.`
@@ -4559,7 +4559,7 @@ Sometimes, the finger will light up at the very last second. You will not have e
 
 if you respond too late or too early, you will hear a buzzer tone. So always press one of your fingers ON the fourth beep.
 
-There will be at least 2 blocks, depending on how well you time your response ON the fourth beep.
+There will be at least 4 blocks, depending on how well you time your response ON the fourth beep.
 
 
 Press (H, U, I, or L) to continue.`
@@ -4592,7 +4592,7 @@ Sometimes, the finger will light up at the very last second. You will not have e
 
 if you respond too late or too early, you will hear a buzzer tone. So always press one of your fingers ON the fourth beep.
 
-There will be at least 2 blocks, depending on how well you time your response ON the fourth beep.
+There will be at least 4 blocks, depending on how well you time your response ON the fourth beep.
 
 
 Press (H, U, I, or L) to continue.`
@@ -8643,7 +8643,7 @@ function TR_Hand_Accuracy_BoolRoutineBegin(trials) {
         }
       }
     } else if (training_vol === 'Extensive') {
-      if ((block_count > 1)) {
+      if ((block_count > 3)) {
         tr_timing_perc = (tr_timing_good / num_trials_hand);
         if ((tr_timing_perc > 0.8)) {
             trials.finished = true;
