@@ -6944,6 +6944,7 @@ function Pre_Trial_HandRoutineEnd(trials) {
     psychoJS.experiment.addData("block_type", block_type);
     psychoJS.experiment.addData("remap", remap);
     psychoJS.experiment.addData("dual", dual);
+    psychoJS.experiment.addData("dual_pre", dual_pre);
     psychoJS.experiment.addData("repeat_count", repeat_count);
     psychoJS.experiment.addData("trial_Count", trial_count);
     psychoJS.experiment.addData("grp_stop", grp_stop);
@@ -8931,6 +8932,7 @@ function Pre_TrialRoutineEnd(trials) {
     psychoJS.experiment.addData("block_type", block_type);
     psychoJS.experiment.addData("remap", remap);
     psychoJS.experiment.addData("dual", dual);
+    psychoJS.experiment.addData("dual_pre", dual_pre);
     psychoJS.experiment.addData("dual_sound_upward", dual_sound);
     psychoJS.experiment.addData("repeat_count", repeat_count);
     psychoJS.experiment.addData("trial_Count", trial_count);
